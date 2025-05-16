@@ -133,7 +133,7 @@
     <ClCompile Include="MenuController.cpp" />
     <ClCompile Include="MenuRegistry.cpp" />
     <ClCompile Include="MenuSetup.cpp" />
-    <ClCompile Include="TEXT ADVENTURE 2.0.cpp" />
+    <ClCompile Include="TEXT ADVENTURE.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h" />
