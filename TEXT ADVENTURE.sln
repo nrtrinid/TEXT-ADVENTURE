@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEXT ADVENTURE", "TEXT ADVENTURE.vcxproj", "{DBEAB09C-03B2-499F-AA07-7FFC5579896E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Debug|x64.ActiveCfg = Debug|x64
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Debug|x64.Build.0 = Debug|x64
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Debug|x86.ActiveCfg = Debug|Win32
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Debug|x86.Build.0 = Debug|Win32
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Release|x64.ActiveCfg = Release|x64
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Release|x64.Build.0 = Release|x64
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Release|x86.ActiveCfg = Release|Win32
+		{DBEAB09C-03B2-499F-AA07-7FFC5579896E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {365EFD34-DCF2-404B-B30A-D241C6E9BD50}
+	EndGlobalSection
+EndGlobal
