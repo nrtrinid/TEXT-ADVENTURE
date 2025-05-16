@@ -1,7 +1,0 @@
-Menu
-displayMenu()
-nextMenu()
-addOption()
-removeOption()
-
-maybe a secret option the player has to manually type out that isnt displayed in the menu
