@@ -15,10 +15,10 @@
 
 int main()
 {
-	MenuRegistry menuRegistry;
-	MenuController menuController(menuRegistry);
-
 	GameState gameState;
+
+	MenuRegistry menuRegistry;
+	MenuController menuController(menuRegistry, gameState);
 
 	bool running = true;
 	bool clearScreen = true;

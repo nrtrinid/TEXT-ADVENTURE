@@ -3,8 +3,8 @@
 #include <stdexcept>
 
 // constructor to initialize the menu controller with a reference to the menu registry
-MenuController::MenuController(MenuRegistry& menuRegistry)
-	: menuRegistry(menuRegistry), currentMenuName("???") {}
+MenuController::MenuController(MenuRegistry& menuRegistry, GameState& gameState)
+	: menuRegistry(menuRegistry), gameState(gameState), currentMenuName("???") {}
 
 // set the current menu by name
 void MenuController::setCurrentMenu(const std::string& menuName) {
@@ -47,7 +47,7 @@ void MenuController::processInput(size_t choice) {
 
 	// check if the choice is valid
 	if (choice > 0 && choice <= menuItems.size()) {
-		menuItems[choice - 1].action(); // execute the action associated with the chosen menu item
+		executeCommands(menuItems[choice - 1].action()); // execute the action associated with the chosen menu item
 	}
 	else {
 		std::cout << "Invalid choice. Please try again." << std::endl;
@@ -56,4 +56,15 @@ void MenuController::processInput(size_t choice) {
 
 const std::string& MenuController::getCurrentMenuName() const {
 	return currentMenuName;
+}
+
+void MenuController::executeCommands(const std::vector<Command>& commands) {
+	for (const auto& command : commands) {
+		switch (command.type) {
+		case Command::Type::Print: std::cout << command.text; break;
+		case Command::Type::Pause: std::cin.get(); break;
+		case Command::Type::SetFlag: gameState.setFlag(command.flag, command.enabled); break;
+		case Command::Type::GotoMenu: setCurrentMenu(command.target); break;
+		}
+	}
 }

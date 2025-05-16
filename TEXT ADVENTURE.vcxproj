@@ -136,6 +136,7 @@
     <ClCompile Include="TEXT ADVENTURE.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Command.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuController.h" />
