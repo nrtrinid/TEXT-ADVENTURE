@@ -14,7 +14,16 @@ void MenuRegistry::addMenuFactory(const std::string& id, std::function<Menu()> f
 		std::cerr << "Factory \"" << id << "\" is being replaced!\n";
 	}
 	
-	factories[id] = factory;
+	factories[id] = [factory]() {
+		Menu menu = factory();
+
+		if (menu.getType() == MenuType::World) {
+			menu.addOption(MenuOption("pause-menu", "Menu", "View party, inventory, etc.", [] {
+				return CommandList{ makeGotoMenu("pause menu", true) };
+				}));
+		}
+		return menu;
+	};
 }
 
 bool MenuRegistry::hasMenu(const std::string& id) const {
@@ -23,12 +32,14 @@ bool MenuRegistry::hasMenu(const std::string& id) const {
 
 Menu MenuRegistry::getMenu(const std::string& id) const {
 	// check for static menu first
-	if (staticMenus.find(id) != staticMenus.end()) {
-		return staticMenus.at(id);
+	auto staticIt = staticMenus.find(id);
+	if (staticIt != staticMenus.end()) {
+		return staticIt->second;
 	}
 	// if no static menu found, check for a menu factory
-	else if (factories.find(id) != factories.end()) {
-		return factories.at(id)();
+	auto factoryIt = factories.find(id);
+	if (factoryIt != factories.end()) {
+		return factoryIt->second();
 	}
 	else {
 		std::cerr << "Menu \"" << id << "\" does not exist!\n";

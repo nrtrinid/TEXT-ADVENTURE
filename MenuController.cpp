@@ -6,13 +6,24 @@
 MenuController::MenuController(MenuRegistry& menuRegistry, GameState& gameState)
 	: menuRegistry(menuRegistry), gameState(gameState), currentMenuName("???") {}
 
-// set the current menu by name
-void MenuController::setCurrentMenu(const std::string& menuName) {
-	if (menuRegistry.hasMenu(menuName)) {
-		currentMenuName = menuName;
+
+void MenuController::returnToPreviousMenu() {
+	if (!menuStack.empty()) {
+		currentMenuName = menuStack.back();
+		menuStack.pop_back();
+	}
+}
+
+// set the current menu by ID (not display name)
+void MenuController::setCurrentMenu(const std::string& menuId, bool remember) {
+	if (menuRegistry.hasMenu(menuId)) {
+		if (remember) {
+			menuStack.push_back(currentMenuName);
+		}
+		currentMenuName = menuId;
 	}
 	else {
-		throw std::invalid_argument("Menu not found: " + menuName);
+		throw std::invalid_argument("Menu not found: " + menuId);
 	}
 }
 
@@ -20,11 +31,34 @@ void MenuController::setCurrentMenu(const std::string& menuName) {
 void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 	const Menu& menu = menuRegistry.getMenu(currentMenuName);
 	const auto& menuOptions = menu.getMenuOptions();
+	MenuType type = menu.getType();
 
-	// display the menu name and description
-	std::cout << "\x1B[2K"; // erase the entire line
-	std::cout << menu.getName() << std::endl;
-	std::cout << menu.getDescription() << std::endl;
+	if (type == MenuType::System) {
+		std::cout << "\033[32m"; // green
+
+		std::string name = menu.getName();
+		int totalWidth = 29;
+		int padding = (totalWidth - name.length()) / 2;
+		int extra = (totalWidth - name.length()) % 2;
+
+		std::cout << "+";
+		std::cout << std::string(totalWidth, '=') << "+\n"; // top border
+
+		std::cout << "|"
+			<< std::string(padding, ' ')
+			<< name
+			<< std::string(padding + extra, ' ')
+			<< "|\n";
+
+		std::cout << "+" << std::string(totalWidth, '=') << "+\n\n"; // bottom border
+
+		std::cout << "\033[0m"; // reset color
+	}
+	else {
+		std::cout << "\x1B[2K";
+		std::cout << menu.getName() << "\n";
+		std::cout << menu.getDescription() << "\n";
+	}
 
 	// display the menu items
 	for (size_t i = 0; i < menuOptions.size(); ++i) {
@@ -64,7 +98,8 @@ void MenuController::executeCommands(const std::vector<Command>& commands) {
 		case Command::Type::Print: std::cout << command.text; break;
 		case Command::Type::Pause: std::cin.get(); break;
 		case Command::Type::SetFlag: gameState.setFlag(command.flag, command.enabled); break;
-		case Command::Type::GotoMenu: setCurrentMenu(command.target); break;
+		case Command::Type::GotoMenu: setCurrentMenu(command.target, command.enabled); break;
+		case Command::Type::PopMenu: returnToPreviousMenu(); break;
 		}
 	}
 }

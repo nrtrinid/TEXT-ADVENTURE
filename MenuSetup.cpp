@@ -105,4 +105,11 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 
 		return menu;
 	});
+
+	Menu pause("pause menu", "Menu", "System Options", MenuType::System);
+	pause.addOption(MenuOption("Back", "Return to World", [] {
+		return CommandList{ makePopMenu() };
+		}));
+
+	menuRegistry.addStaticMenu(pause);
 }

@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-Menu::Menu() : id("???"), name("???"), description("???") {}
+Menu::Menu() : id("???"), name("???"), description("???"), menuType(MenuType::World) {}
 
-Menu::Menu(const std::string& name, const std::string& description) 
-	: id(name), name(name), description(description) {}
+Menu::Menu(const std::string& name, const std::string& description, MenuType type)
+	: id(name), name(name), description(description), menuType(type) {}
 
-Menu::Menu(const std::string& id, const std::string& name, const std::string& description)
-	: id(id), name(name), description(description) {}
+Menu::Menu(const std::string& id, const std::string& name, const std::string& description, MenuType type)
+	: id(id), name(name), description(description), menuType(type) {}
 
 void Menu::addOption(const MenuOption& menuOption) {
 	menuOptions.push_back(menuOption);
@@ -29,6 +29,10 @@ void Menu::removeOptionById(const std::string& optionId) {
 }
 
 // getters
+
+MenuType Menu::getType() const {
+	return menuType;
+}
 
 const std::string& Menu::getId() const {
 	return id;
