@@ -1,8 +1,8 @@
 #pragma once
 
 #include "MenuRegistry.h"
-#include "GameState.h"
-#include "Command.h"
+#include "core/GameState.h"
+#include "core/Command.h"
 #include <string>
 #include <vector>
 

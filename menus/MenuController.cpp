@@ -34,6 +34,7 @@ void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 	MenuType type = menu.getType();
 
 	if (type == MenuType::System) {
+		std::cout << "\x1B[2K";
 		std::cout << "\033[32m"; // green
 
 		std::string name = menu.getName();

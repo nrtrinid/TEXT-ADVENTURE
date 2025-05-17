@@ -2,11 +2,11 @@
 //
 
 #include <iostream>
-#include "Menu.h"
-#include "MenuRegistry.h"
-#include "MenuController.h"
-#include "MenuSetup.h"
-#include "GameState.h"
+#include "menus/Menu.h"
+#include "menus/MenuRegistry.h"
+#include "menus/MenuController.h"
+#include "menus/MenuSetup.h"
+#include "core/GameState.h"
 
 #include <conio.h>  // For _getch()
 

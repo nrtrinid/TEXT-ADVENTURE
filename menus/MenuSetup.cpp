@@ -1,4 +1,5 @@
 #include "MenuSetup.h"
+#include "InventoryMenu.h"
 #include <iostream>
 #include <string>
 
@@ -107,9 +108,25 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 	});
 
 	Menu pause("pause menu", "Menu", "System Options", MenuType::System);
+	
+	pause.addOption(MenuOption("Party", "View party", [] {
+		return CommandList{
+			makePrint("Party would go here"),
+			makePause()
+		};
+	}));
+
+	pause.addOption(MenuOption("Inventory", "View items", [] {
+		return CommandList{
+			makeGotoMenu("inventory", true)
+		};
+	}));
+
 	pause.addOption(MenuOption("Back", "Return to World", [] {
 		return CommandList{ makePopMenu() };
-		}));
+	}));
 
 	menuRegistry.addStaticMenu(pause);
+
+	registerInventoryMenu(menuRegistry, menuController, gameState);
 }
