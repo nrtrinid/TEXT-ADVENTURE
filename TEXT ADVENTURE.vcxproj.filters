@@ -1,18 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="core">
-      <UniqueIdentifier>{60bcd25e-1170-481c-9c17-52f5677670e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="menus">
-      <UniqueIdentifier>{db125134-8bf5-4616-8ed1-61a99645ff04}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="main">
-      <UniqueIdentifier>{5002565b-7b04-4d48-9ff3-e41617819d5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="docs">
       <UniqueIdentifier>{db9166b7-44dc-492c-b7ce-c7f0945167eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{25a0d049-590a-45c3-9569-f451b4b1c86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="menus">
+      <UniqueIdentifier>{ed7a5d40-870d-4906-af9c-cc71f9243988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{d9fbe549-d43f-41e5-99ae-7dd46f8c50b0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="docs\README.md">
+      <Filter>docs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Command.h">
@@ -21,48 +26,52 @@
     <ClInclude Include="core\GameState.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="menus\MenuSetup.h">
-      <Filter>menus</Filter>
-    </ClInclude>
-    <ClInclude Include="menus\MenuRegistry.h">
-      <Filter>menus</Filter>
-    </ClInclude>
-    <ClInclude Include="menus\MenuController.h">
+    <ClInclude Include="menus\InventoryMenu.h">
       <Filter>menus</Filter>
     </ClInclude>
     <ClInclude Include="menus\Menu.h">
       <Filter>menus</Filter>
     </ClInclude>
-    <ClInclude Include="menus\InventoryMenu.h">
+    <ClInclude Include="menus\MenuController.h">
       <Filter>menus</Filter>
+    </ClInclude>
+    <ClInclude Include="menus\MenuRegistry.h">
+      <Filter>menus</Filter>
+    </ClInclude>
+    <ClInclude Include="menus\MenuSetup.h">
+      <Filter>menus</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Item.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\PlayerInventory.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="menus\MenuSetup.cpp">
-      <Filter>menus</Filter>
+    <ClCompile Include="main\TEXT ADVENTURE.cpp">
+      <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="menus\MenuRegistry.cpp">
-      <Filter>menus</Filter>
-    </ClCompile>
-    <ClCompile Include="menus\MenuController.cpp">
+    <ClCompile Include="menus\InventoryMenu.cpp">
       <Filter>menus</Filter>
     </ClCompile>
     <ClCompile Include="menus\Menu.cpp">
       <Filter>menus</Filter>
     </ClCompile>
-    <ClCompile Include="menus\InventoryMenu.cpp">
+    <ClCompile Include="menus\MenuController.cpp">
       <Filter>menus</Filter>
     </ClCompile>
-    <ClCompile Include="main\TEXT ADVENTURE.cpp">
-      <Filter>main</Filter>
+    <ClCompile Include="menus\MenuRegistry.cpp">
+      <Filter>menus</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="docs\README.md">
-      <Filter>docs</Filter>
-    </None>
+    <ClCompile Include="menus\MenuSetup.cpp">
+      <Filter>menus</Filter>
+    </ClCompile>
+    <ClCompile Include="core\PlayerInventory.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

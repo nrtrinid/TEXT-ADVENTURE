@@ -5,4 +5,3 @@
 #include "core/GameState.h"
 
 void registerInventoryMenu(MenuRegistry& menuRegistery, MenuController& menuController, GameState& gameState);
-

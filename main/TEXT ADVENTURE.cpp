@@ -2,16 +2,16 @@
 //
 
 #include <iostream>
+#include <conio.h>
+
 #include "menus/Menu.h"
 #include "menus/MenuRegistry.h"
 #include "menus/MenuController.h"
 #include "menus/MenuSetup.h"
+
 #include "core/GameState.h"
-
-#include <conio.h>  // For _getch()
-
-// forward declarations
-
+#include "core/Item.h"
+#include "core/PlayerInventory.h"
 
 int main()
 {
@@ -24,6 +24,9 @@ int main()
 	bool clearScreen = true;
 	size_t selectedIndex = 0;
 
+	gameState.getInventory().addItem("Potion", "Heals 20 HP", 2);
+	gameState.getInventory().addItem("Elixir", "Restores all HP and MP");
+	gameState.getInventory().addItem("Potion", "Heals 20 HP"); // should stack
 	registerMenus(menuRegistry, menuController, gameState);
 
 	menuController.setCurrentMenu("old mansion");
@@ -41,11 +44,16 @@ int main()
 		}
 		else if (key == 224) { // arrow keys
 			int arrow = _getch();
-			if (arrow == 72 && selectedIndex > 0) {
-				--selectedIndex;
+			const size_t optionCount = menuRegistry.getMenu(menuController.getCurrentMenuName()).getMenuOptions().size();
+
+			if (arrow == 72) { // Up arrow
+				if (selectedIndex == 0)
+					selectedIndex = optionCount - 1; // wrap to bottom
+				else
+					--selectedIndex;
 			}
-			else if (arrow == 80 && selectedIndex < menuRegistry.getMenu(menuController.getCurrentMenuName()).getMenuOptions().size() - 1) {
-				++selectedIndex;
+			else if (arrow == 80) { // Down arrow
+				selectedIndex = (selectedIndex + 1) % optionCount; // wrap to top
 			}
 		}
 		else if (key == '\r') {

@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\core;$(ProjectDir)\menus</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,17 +129,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="core\GameState.cpp" />
-    <ClCompile Include="main\TEXT ADVENTURE.cpp" />
-    <ClCompile Include="menus\InventoryMenu.cpp" />
-    <ClCompile Include="menus\Menu.cpp" />
-    <ClCompile Include="menus\MenuController.cpp" />
-    <ClCompile Include="menus\MenuRegistry.cpp" />
-    <ClCompile Include="menus\MenuSetup.cpp" />
+    <None Include="docs\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Command.h" />
     <ClInclude Include="core\GameState.h" />
+    <ClInclude Include="core\Item.h" />
+    <ClInclude Include="core\PlayerInventory.h" />
     <ClInclude Include="menus\InventoryMenu.h" />
     <ClInclude Include="menus\Menu.h" />
     <ClInclude Include="menus\MenuController.h" />
@@ -147,7 +143,14 @@
     <ClInclude Include="menus\MenuSetup.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="docs\README.md" />
+    <ClCompile Include="core\GameState.cpp" />
+    <ClCompile Include="core\PlayerInventory.cpp" />
+    <ClCompile Include="main\TEXT ADVENTURE.cpp" />
+    <ClCompile Include="menus\InventoryMenu.cpp" />
+    <ClCompile Include="menus\Menu.cpp" />
+    <ClCompile Include="menus\MenuController.cpp" />
+    <ClCompile Include="menus\MenuRegistry.cpp" />
+    <ClCompile Include="menus\MenuSetup.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

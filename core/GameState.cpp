@@ -8,3 +8,11 @@ bool GameState::hasFlag(const std::string& key) const {
 void GameState::setFlag(const std::string& key, bool enabled) {
 	flags[key] = enabled;
 }
+
+PlayerInventory& GameState::getInventory() {
+	return inventory;
+}
+
+const PlayerInventory& GameState::getInventory() const {
+	return inventory;
+}

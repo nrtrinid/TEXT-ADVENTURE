@@ -5,18 +5,26 @@ void registerInventoryMenu(MenuRegistry& menuRegistry, MenuController& menuContr
 	menuRegistry.addMenuFactory("inventory", [&menuController, &gameState]() {
 		Menu menu("Inventory", "Items you are currently carrying:", MenuType::System);
 
-		// placeholder item list
-		menu.addOption(MenuOption("Mysterious Potion", "You are not sure what this does...", [] {
-			return CommandList{
-				makePrint("You drink the potion. It tastes like regret.\n"),
-				makePause()
-			};
+		const auto& items = gameState.getInventory().getItems();
+
+		for (const auto& item : items) {
+			std::string label = item.getName() + " (x" + std::to_string(item.getQuantity()) + ")";
+			std::string desc = item.getDescription();
+
+			std::string itemName = item.getName();
+
+			menu.addOption(MenuOption(label, desc, [itemName] {
+				return CommandList{
+					makeUseItem(itemName),
+					makePause()
+				};
 			}));
+		}
 
 		menu.addOption(MenuOption("Back", "Return to the previous menu.", [] {
 			return CommandList{ makePopMenu() };
-			}));
+		}));
 
 		return menu;
-		});
+	});
 }

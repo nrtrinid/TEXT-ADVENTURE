@@ -21,7 +21,7 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 		}));
 
 		// Staircase logic: 3 possible versions
-		if (!gameState.hasFlag("hasAtticKey")) {
+		if (!gameState.hasFlag("hasAtticKey") && !gameState.hasFlag("atticUnlocked")) {
 			menu.addOption(MenuOption("Crumbling Staircase", "It looks like it leads to a door", [] {
 				return CommandList{
 					makePrint("The door is locked.\n"),
@@ -35,6 +35,8 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 					makePrint("The door unlocks!\n"),
 					makePause(),
 					makeSetFlag("atticUnlocked"),
+					makeSetFlag("hasAtticKey", false),
+					makeRemoveItem("Attic Key"),
 					makeGotoMenu("attic")
 				};
 			}));
@@ -67,6 +69,7 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 			menu.addOption(MenuOption("Pick up key", "The key glows faintly, almost reassuringly", []() {
 				return CommandList{
 					makeSetFlag("hasAtticKey"),
+					makeAddItem("Attic Key", "Slightly warm.", 1, ItemType::Key),
 					makePrint("You pick up the key, it feels warm.\n"),
 					makePause()
 				};
@@ -92,6 +95,7 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 			menu.addOption(MenuOption("Open the trunk", "It might contain something valuable.", []() {
 				return CommandList{
 					makeSetFlag("hasAtticCrystal"),
+					makeAddItem("Crystal", "A pulsating gem, warm to the touch.", ItemType::Key),
 					makePrint("Inside the trunk, you find a strange, humming crystal.\n"),
 					makePause()
 				};

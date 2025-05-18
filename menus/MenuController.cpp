@@ -58,7 +58,7 @@ void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 	else {
 		std::cout << "\x1B[2K";
 		std::cout << menu.getName() << "\n";
-		std::cout << menu.getDescription() << "\n";
+		std::cout << menu.getDescription() << "\n\n";
 	}
 
 	// display the menu items
@@ -101,6 +101,36 @@ void MenuController::executeCommands(const std::vector<Command>& commands) {
 		case Command::Type::SetFlag: gameState.setFlag(command.flag, command.enabled); break;
 		case Command::Type::GotoMenu: setCurrentMenu(command.target, command.enabled); break;
 		case Command::Type::PopMenu: returnToPreviousMenu(); break;
+		case Command::Type::AddItem: gameState.getInventory().addItem(command.itemName, command.itemDescription, command.itemQuantity, command.itemType); break;
+		case Command::Type::RemoveItem: gameState.getInventory().removeItem(command.itemName, command.itemQuantity); break;
+		case Command::Type::UseItem: {
+			auto& inventory = gameState.getInventory();
+			const auto& items = inventory.getItems();
+
+			auto it = std::find_if(items.begin(), items.end(), [&](const Item& i) {
+				return i.getName() == command.itemName;
+				});
+
+			if (it != items.end()) {
+				if (it->getType() == ItemType::Key) {
+					std::cout << "You can't use that here.\n";
+					break;
+				}
+			}
+
+			// apply effect
+			if (command.itemName == "Potion") {
+				inventory.removeItem(command.itemName);
+				int remaining = inventory.getItemCount("Potion");
+				if (remaining == 0) {
+					std::cout << "You have no more Potions.\n";
+				}
+				else {
+					std::cout << "You used a Potion. (" << remaining << " left)\n";
+				}
+			}
+			break;
+		}
 		}
 	}
 }
