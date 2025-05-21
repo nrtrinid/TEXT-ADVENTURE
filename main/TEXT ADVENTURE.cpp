@@ -24,15 +24,25 @@ int main()
 	bool clearScreen = true;
 	size_t selectedIndex = 0;
 
+	// initalize the party
+	gameState.getParty() = std::make_shared<Party>();
+
+	auto& party = gameState.getParty();
+	party->addMember(std::make_shared<Character>("c001", "Wren the Clever", 88));        // Rogue-ish intellect
+	party->addMember(std::make_shared<Character>("c002", "Bastion of Elrock", 120));     // Tanky knight
+	party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind", 95));      // Elemental mage
+	party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", 100, true)); // Mercenary bruiser
+
 	gameState.getInventory().addItem("Potion", "Heals 20 HP", 2);
 	gameState.getInventory().addItem("Elixir", "Restores all HP and MP");
 	gameState.getInventory().addItem("Potion", "Heals 20 HP"); // should stack
+
 	registerMenus(menuRegistry, menuController, gameState);
 
 	menuController.setCurrentMenu("old mansion");
 
 	while (running) {
-		if (clearScreen) std::cout << "\x1B[10A"; // clear screen
+		if (clearScreen) std::cout << "\x1B[20A"; // clear screen
 
 		menuController.displayCurrentMenu(selectedIndex);
 

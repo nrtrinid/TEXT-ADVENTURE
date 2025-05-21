@@ -47,6 +47,18 @@
     <ClInclude Include="core\PlayerInventory.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Party.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="PartyMenu.h">
+      <Filter>menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuOption.h">
+      <Filter>menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
@@ -72,6 +84,15 @@
     </ClCompile>
     <ClCompile Include="core\PlayerInventory.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Party.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="PartyMenu.cpp">
+      <Filter>menus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

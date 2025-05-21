@@ -1,15 +1,16 @@
 #include "MenuSetup.h"
 #include "InventoryMenu.h"
+#include "PartyMenu.h"
 #include <iostream>
 #include <string>
 
 void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, GameState& gameState) {
 	menuRegistry.addMenuFactory("old mansion", [&menuController, &gameState]() {
-		Menu menu("Old Mansion", "the decaying wood of the mansion creaks as you step in, the dark roof looming several stories above you");
+		Menu menu("Old Mansion", "The decaying wood of the mansion creaks as you step in, the dark roof looming several stories above you");
 
-		menu.addOption(MenuOption("Creepy Library", "the dust gathered from the ancient books and secrets surrounds you", [] {
+		menu.addOption(MenuOption("Creepy Library", "The dust gathered from the ancient books and secrets surrounds you", [] {
 			return CommandList{
-				makePrint("You tiptoe into the dark library. the shelves creak.\n"),
+				makePrint("You tiptoe into the dark library. The shelves creak.\n"),
 				makePause()
 			};
 		}));
@@ -114,16 +115,11 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 	Menu pause("pause menu", "Menu", "System Options", MenuType::System);
 	
 	pause.addOption(MenuOption("Party", "View party", [] {
-		return CommandList{
-			makePrint("Party would go here"),
-			makePause()
-		};
+		return CommandList{	makeGotoMenu("party", true) };
 	}));
 
 	pause.addOption(MenuOption("Inventory", "View items", [] {
-		return CommandList{
-			makeGotoMenu("inventory", true)
-		};
+		return CommandList{ makeGotoMenu("inventory", true) };
 	}));
 
 	pause.addOption(MenuOption("Back", "Return to World", [] {
@@ -132,5 +128,6 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 
 	menuRegistry.addStaticMenu(pause);
 
-	registerInventoryMenu(menuRegistry, menuController, gameState);
+	registerInventoryMenu(menuRegistry, gameState);
+	registerPartyMenu(menuRegistry, gameState);
 }

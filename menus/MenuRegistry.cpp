@@ -3,10 +3,10 @@
 
 void MenuRegistry::addStaticMenu(const Menu& newStaticMenu) {
 	// check if the menu already exists
-	if (staticMenus.find(newStaticMenu.getId()) != staticMenus.end()) {
-		std::cerr << "Menu \"" << newStaticMenu.getId() << "\" is being replaced!\n";
+	if (staticMenus.find(newStaticMenu.getID()) != staticMenus.end()) {
+		std::cerr << "Menu \"" << newStaticMenu.getID() << "\" is being replaced!\n";
 	}
-	staticMenus[newStaticMenu.getId()] = newStaticMenu;
+	staticMenus[newStaticMenu.getID()] = newStaticMenu;
 }
 
 void MenuRegistry::addMenuFactory(const std::string& id, std::function<Menu()> factory) {
@@ -21,6 +21,11 @@ void MenuRegistry::addMenuFactory(const std::string& id, std::function<Menu()> f
 			menu.addOption(MenuOption("pause-menu", "Menu", "View party, inventory, etc.", [] {
 				return CommandList{ makeGotoMenu("pause menu", true) };
 				}));
+		}
+		else if (menu.getType() == MenuType::System) {
+			menu.addOption(MenuOption("Back", "Return to the previous menu.", [] {
+				return CommandList{ makePopMenu() };
+			}));
 		}
 		return menu;
 	};

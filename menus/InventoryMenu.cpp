@@ -1,8 +1,9 @@
 #include "InventoryMenu.h"
+#include "Menu.h"
 #include <iostream>
 
-void registerInventoryMenu(MenuRegistry& menuRegistry, MenuController& menuController, GameState& gameState) {
-	menuRegistry.addMenuFactory("inventory", [&menuController, &gameState]() {
+void registerInventoryMenu(MenuRegistry& menuRegistry, GameState& gameState) {
+	menuRegistry.addMenuFactory("inventory", [&gameState]() {
 		Menu menu("Inventory", "Items you are currently carrying:", MenuType::System);
 
 		const auto& items = gameState.getInventory().getItems();
@@ -20,11 +21,6 @@ void registerInventoryMenu(MenuRegistry& menuRegistry, MenuController& menuContr
 				};
 			}));
 		}
-
-		menu.addOption(MenuOption("Back", "Return to the previous menu.", [] {
-			return CommandList{ makePopMenu() };
-		}));
-
 		return menu;
 	});
 }

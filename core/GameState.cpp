@@ -16,3 +16,11 @@ PlayerInventory& GameState::getInventory() {
 const PlayerInventory& GameState::getInventory() const {
 	return inventory;
 }
+
+Party::Ptr& GameState::getParty() {
+	return party;
+}
+
+const Party::Ptr& GameState::getParty() const {
+	return party;
+}

@@ -14,7 +14,7 @@ void Menu::addOption(const MenuOption& menuOption) {
 	menuOptions.push_back(menuOption);
 }
 
-void Menu::removeOptionById(const std::string& optionId) {
+void Menu::removeOptionByID(const std::string& optionId) {
 	auto iterator = std::find_if(menuOptions.begin(), menuOptions.end(),
 		[&](const MenuOption& option) {
 			return option.id == optionId;
@@ -34,7 +34,7 @@ MenuType Menu::getType() const {
 	return menuType;
 }
 
-const std::string& Menu::getId() const {
+const std::string& Menu::getID() const {
 	return id;
 }
 

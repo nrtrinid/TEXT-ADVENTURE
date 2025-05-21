@@ -38,9 +38,9 @@ void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 		std::cout << "\033[32m"; // green
 
 		std::string name = menu.getName();
-		int totalWidth = 29;
-		int padding = (totalWidth - name.length()) / 2;
-		int extra = (totalWidth - name.length()) % 2;
+		std::size_t totalWidth = 29;
+		std::size_t padding = (totalWidth - name.length()) / 2;
+		std::size_t extra = (totalWidth - name.length()) % 2;
 
 		std::cout << "+";
 		std::cout << std::string(totalWidth, '=') << "+\n"; // top border
