@@ -129,35 +129,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="docs\README.md" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h" />
     <ClInclude Include="core\Command.h" />
     <ClInclude Include="core\GameState.h" />
     <ClInclude Include="core\Item.h" />
     <ClInclude Include="core\PlayerInventory.h" />
-    <ClInclude Include="MenuOption.h" />
+    <ClInclude Include="entities\Character.h" />
+    <ClInclude Include="entities\Party.h" />
     <ClInclude Include="menus\InventoryMenu.h" />
     <ClInclude Include="menus\Menu.h" />
     <ClInclude Include="menus\MenuController.h" />
+    <ClInclude Include="menus\MenuOption.h" />
     <ClInclude Include="menus\MenuRegistry.h" />
     <ClInclude Include="menus\MenuSetup.h" />
-    <ClInclude Include="Party.h" />
-    <ClInclude Include="PartyMenu.h" />
+    <ClInclude Include="menus\PartyMenu.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Character.cpp" />
     <ClCompile Include="core\GameState.cpp" />
     <ClCompile Include="core\PlayerInventory.cpp" />
+    <ClCompile Include="entities\Character.cpp" />
+    <ClCompile Include="entities\Party.cpp" />
     <ClCompile Include="main\TEXT ADVENTURE.cpp" />
     <ClCompile Include="menus\InventoryMenu.cpp" />
     <ClCompile Include="menus\Menu.cpp" />
     <ClCompile Include="menus\MenuController.cpp" />
     <ClCompile Include="menus\MenuRegistry.cpp" />
     <ClCompile Include="menus\MenuSetup.cpp" />
-    <ClCompile Include="Party.cpp" />
-    <ClCompile Include="PartyMenu.cpp" />
+    <ClCompile Include="menus\PartyMenu.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

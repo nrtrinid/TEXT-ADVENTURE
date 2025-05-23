@@ -1,7 +1,7 @@
 #include "PartyMenu.h"
 #include "Menu.h"
-#include "Party.h"
-#include "Character.h"
+#include "entities/Party.h"
+#include "entities/Character.h"
 
 void registerPartyMenu(MenuRegistry& menuRegistry, GameState& gameState) {
 	menuRegistry.addMenuFactory("party", [&gameState]() {

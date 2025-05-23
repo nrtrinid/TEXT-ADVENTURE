@@ -1,7 +1,7 @@
 #pragma once
 
 #include "PlayerInventory.h"
-#include "Party.h"
+#include "entities/Party.h"
 #include <unordered_map>
 #include <string>
 

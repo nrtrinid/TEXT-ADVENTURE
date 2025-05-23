@@ -33,6 +33,9 @@ int main()
 	party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind", 95));      // Elemental mage
 	party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", 100, true)); // Mercenary bruiser
 
+	party->getMemberByID("c001")->setHP(0);
+	party->getMemberByID("c002")->setHP(150);
+
 	gameState.getInventory().addItem("Potion", "Heals 20 HP", 2);
 	gameState.getInventory().addItem("Elixir", "Restores all HP and MP");
 	gameState.getInventory().addItem("Potion", "Heals 20 HP"); // should stack

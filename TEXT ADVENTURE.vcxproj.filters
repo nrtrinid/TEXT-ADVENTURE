@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="docs">
-      <UniqueIdentifier>{db9166b7-44dc-492c-b7ce-c7f0945167eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{25a0d049-590a-45c3-9569-f451b4b1c86b}</UniqueIdentifier>
     </Filter>
@@ -13,11 +10,12 @@
     <Filter Include="main">
       <UniqueIdentifier>{d9fbe549-d43f-41e5-99ae-7dd46f8c50b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="entities">
+      <UniqueIdentifier>{51820665-aa95-4756-a381-b691d417c5d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="docs\README.md">
-      <Filter>docs</Filter>
-    </None>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Command.h">
@@ -47,17 +45,17 @@
     <ClInclude Include="core\PlayerInventory.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="Party.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="PartyMenu.h">
+    <ClInclude Include="menus\MenuOption.h">
       <Filter>menus</Filter>
     </ClInclude>
-    <ClInclude Include="MenuOption.h">
+    <ClInclude Include="menus\PartyMenu.h">
       <Filter>menus</Filter>
+    </ClInclude>
+    <ClInclude Include="entities\Character.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="entities\Party.h">
+      <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,14 +83,14 @@
     <ClCompile Include="core\PlayerInventory.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="Party.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="PartyMenu.cpp">
+    <ClCompile Include="menus\PartyMenu.cpp">
       <Filter>menus</Filter>
+    </ClCompile>
+    <ClCompile Include="entities\Character.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="entities\Party.cpp">
+      <Filter>entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
