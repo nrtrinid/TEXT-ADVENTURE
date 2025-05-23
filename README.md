@@ -1,6 +1,6 @@
 # TEXT ADVENTURE
 
-A C++ text-based RPG engine built in Visual Studio, featuring a modular menu system, stack-based UI transitions, and foundational systems for building interactive world states, character parties, and command parsing.
+A C++ text-based RPG built with a modular engine, supporting cross-platform builds using CMake and a terminal-based interface for Windows and Linux.
 
 ## ✅ Working Features
 
@@ -35,9 +35,22 @@ A C++ text-based RPG engine built in Visual Studio, featuring a modular menu sys
 
 ## 🧪 How to Build
 
-Open `TEXT-ADVENTURE.sln` in Visual Studio 2022 and press **Build** (or `Ctrl+Shift+B`).  
-This project uses the default Visual Studio configuration for compilation.
+### Windows (Visual Studio Code)
+- Make sure CMake and a C++ compiler (MSVC or MinGW) are installed
+- Open the folder in VS Code
+- Run `CMake: Configure` and `CMake: Build` from the Command Palette
+- Run the executable from the `build/` directory
 
+### Linux / WSL
+```bash
+git clone https://github.com/nrtrinid/TEXT-ADVENTURE.git
+cd TEXT-ADVENTURE
+cmake -B build
+cmake --build build
+./build/text-adventure
+```
 ---
+
+## 🧠 About This Project
 
 > 🎯 This project is a personal exploration of clean C++ architecture in game design — a focus on modularity, separation of concerns, and extensibility in a terminal-based RPG environment.

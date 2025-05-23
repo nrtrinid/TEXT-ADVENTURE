@@ -1,6 +1,3 @@
-// TEXT ADVENTURE 2.0.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 
 #include "menus/Menu.h"
@@ -31,9 +28,6 @@ int main()
 	party->addMember(std::make_shared<Character>("c002", "Bastion of Elrock", 120));     // Tanky knight
 	party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind", 95));      // Elemental mage
 	party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", 100, true)); // Mercenary bruiser
-
-	party->getMemberByID("c001")->setHP(0);
-	party->getMemberByID("c002")->setHP(150);
 
 	gameState.getInventory().addItem("Potion", "Heals 20 HP", 2);
 	gameState.getInventory().addItem("Elixir", "Restores all HP and MP");

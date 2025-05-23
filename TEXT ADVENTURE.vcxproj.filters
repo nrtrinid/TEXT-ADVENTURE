@@ -65,9 +65,6 @@
     <ClCompile Include="core\GameState.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="main\TEXT ADVENTURE.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="menus\InventoryMenu.cpp">
       <Filter>menus</Filter>
     </ClCompile>
@@ -97,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="core\Input.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="main\main.cpp">
+      <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
