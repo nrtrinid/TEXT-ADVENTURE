@@ -13,9 +13,15 @@
     <Filter Include="entities">
       <UniqueIdentifier>{51820665-aa95-4756-a381-b691d417c5d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="docs">
+      <UniqueIdentifier>{ed9e1a03-a19f-40f6-a857-b4e914f67dfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="docs\CHANGELOG.md">
+      <Filter>docs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Command.h">
