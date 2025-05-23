@@ -57,6 +57,9 @@
     <ClInclude Include="entities\Party.h">
       <Filter>entities</Filter>
     </ClInclude>
+    <ClInclude Include="core\Input.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
@@ -92,5 +95,11 @@
     <ClCompile Include="entities\Party.cpp">
       <Filter>entities</Filter>
     </ClCompile>
+    <ClCompile Include="core\Input.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

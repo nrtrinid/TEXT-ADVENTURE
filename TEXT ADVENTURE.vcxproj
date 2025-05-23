@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="core\Command.h" />
     <ClInclude Include="core\GameState.h" />
+    <ClInclude Include="core\Input.h" />
     <ClInclude Include="core\Item.h" />
     <ClInclude Include="core\PlayerInventory.h" />
     <ClInclude Include="entities\Character.h" />
@@ -148,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp" />
+    <ClCompile Include="core\Input.cpp" />
     <ClCompile Include="core\PlayerInventory.cpp" />
     <ClCompile Include="entities\Character.cpp" />
     <ClCompile Include="entities\Party.cpp" />
@@ -158,6 +160,9 @@
     <ClCompile Include="menus\MenuRegistry.cpp" />
     <ClCompile Include="menus\MenuSetup.cpp" />
     <ClCompile Include="menus\PartyMenu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
