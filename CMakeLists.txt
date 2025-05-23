@@ -4,7 +4,11 @@ project(TextAdventure)
 set(CMAKE_CXX_STANDARD 17)
 
 # Include header folders
-include_directories(core entities menus)
+include_directories(
+    ${CMAKE_SOURCE_DIR}/core
+    ${CMAKE_SOURCE_DIR}/entities
+    ${CMAKE_SOURCE_DIR}/menus
+)
 
 # Gather all .cpp and .h files recursively from source directories
 file(GLOB_RECURSE SOURCES
