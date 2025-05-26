@@ -10,8 +10,29 @@
 #include "core/Item.h"
 #include "core/PlayerInventory.h"
 
+#include "skills/SkillRegistry.h"
+#include "systems/SkillSystem.h"
+#include "effects/EffectRegistry.h"
+
 int main()
 {
+	{
+		Character mage("c001", "Kaela", 100);
+		mage.setStat("clarity", 5);
+		mage.setHP(10);
+		std::cout << "hurt hp:" << mage.getHP() << "\n";
+		const Skill& heal = SkillRegistry::instance().get("heal spell");
+		GameState tmpWorld;
+		SkillSystem::execute(heal, mage, mage, tmpWorld);
+
+		int bonus = mage.getSkillBonus(heal.baseMagnitude, "clarity");
+		int expectedHeal = heal.baseMagnitude + bonus;
+
+		std::cout << "Heal-spell test, healing " << expectedHeal
+			<< " | HP after: " << mage.getHP() << "\n\n";
+		std::cin.get();                                // pause before game loop
+	}
+
 	GameState gameState;
 
 	MenuRegistry menuRegistry;

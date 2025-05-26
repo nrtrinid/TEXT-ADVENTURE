@@ -16,6 +16,15 @@
     <Filter Include="docs">
       <UniqueIdentifier>{ed9e1a03-a19f-40f6-a857-b4e914f67dfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="effects">
+      <UniqueIdentifier>{0ab5ba3f-1775-4275-8e8c-a7accf22aa6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems">
+      <UniqueIdentifier>{ff8fc8a6-b1be-4db5-9de4-47e12f540f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="skills">
+      <UniqueIdentifier>{d1c957dd-4071-4352-9a85-c55748c4cb64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -66,6 +75,24 @@
     <ClInclude Include="core\Input.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="effects\Effect.h">
+      <Filter>effects</Filter>
+    </ClInclude>
+    <ClInclude Include="effects\HealEffect.h">
+      <Filter>effects</Filter>
+    </ClInclude>
+    <ClInclude Include="effects\EffectRegistry.h">
+      <Filter>effects</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\SkillSystem.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="skills\Skill.h">
+      <Filter>skills</Filter>
+    </ClInclude>
+    <ClInclude Include="skills\SkillRegistry.h">
+      <Filter>skills</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
@@ -103,6 +130,15 @@
     </ClCompile>
     <ClCompile Include="main\main.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="effects\HealEffect.cpp">
+      <Filter>effects</Filter>
+    </ClCompile>
+    <ClCompile Include="effects\EffectRegistry.cpp">
+      <Filter>effects</Filter>
+    </ClCompile>
+    <ClCompile Include="skills\SkillRegistry.cpp">
+      <Filter>skills</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

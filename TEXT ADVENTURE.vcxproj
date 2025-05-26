@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\core;$(ProjectDir)\menus</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +138,9 @@
     <ClInclude Include="core\Input.h" />
     <ClInclude Include="core\Item.h" />
     <ClInclude Include="core\PlayerInventory.h" />
+    <ClInclude Include="effects\Effect.h" />
+    <ClInclude Include="effects\EffectRegistry.h" />
+    <ClInclude Include="effects\HealEffect.h" />
     <ClInclude Include="entities\Character.h" />
     <ClInclude Include="entities\Party.h" />
     <ClInclude Include="menus\InventoryMenu.h" />
@@ -147,11 +150,16 @@
     <ClInclude Include="menus\MenuRegistry.h" />
     <ClInclude Include="menus\MenuSetup.h" />
     <ClInclude Include="menus\PartyMenu.h" />
+    <ClInclude Include="skills\Skill.h" />
+    <ClInclude Include="skills\SkillRegistry.h" />
+    <ClInclude Include="systems\SkillSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp" />
     <ClCompile Include="core\Input.cpp" />
     <ClCompile Include="core\PlayerInventory.cpp" />
+    <ClCompile Include="effects\EffectRegistry.cpp" />
+    <ClCompile Include="effects\HealEffect.cpp" />
     <ClCompile Include="entities\Character.cpp" />
     <ClCompile Include="entities\Party.cpp" />
     <ClCompile Include="main\main.cpp" />
@@ -161,6 +169,7 @@
     <ClCompile Include="menus\MenuRegistry.cpp" />
     <ClCompile Include="menus\MenuSetup.cpp" />
     <ClCompile Include="menus\PartyMenu.cpp" />
+    <ClCompile Include="skills\SkillRegistry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

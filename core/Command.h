@@ -5,18 +5,36 @@
 #include <vector>
 
 struct Command {
-	enum class Type { Print, Pause, SetFlag, GotoMenu, PopMenu, AddItem, RemoveItem, UseItem};
+    enum class Type {
+        Print,
+        Pause,
+        SetFlag,
+        GotoMenu,
+        PopMenu,
+        AddItem,
+        RemoveItem,
+        UseItem,
+        UseSkill
+    };
 
-	Type type;
-	std::string text;   // Print uses this
-	std::string target; // GotoMenu uses this
-	std::string flag;   // SetFlag uses this
-	bool enabled{};     // the actual SetFlag
+    Type type;
 
-	std::string itemName;
-	std::string itemDescription;
-	int itemQuantity = 1;
-	ItemType itemType = ItemType::Consumable;
+    // UI / Narrative
+    std::string text;       // print uses this
+    std::string target;     // gotoMenu uses this (menu ID)
+    std::string flag;       // setFlag uses this
+    bool enabled{};         // used by setFlag (true = set, false = unset)
+
+    // inventory
+    std::string itemName;         // addItem / removeItem
+    std::string itemDescription;  // optional, addItem
+    int itemQuantity = 1;         // affects addItem / removeItem
+    ItemType itemType = ItemType::Consumable;
+
+    // game action (skill/item use)
+    std::string id;               // item or skill ID (for useItem / useSkill)
+    int magnitudeOverride = 0;    // optional override for item effects
+    int targetIndex = 0;          // target party index (useItem / useSkill)
 };
 
 using CommandList = std::vector<Command>; // alias for vector of commands
@@ -66,8 +84,19 @@ inline Command makeRemoveItem(const std::string& name, int quantity = 1) {
 	return command;
 }
 
-inline Command makeUseItem(const std::string& itemName) {
-	Command command = { Command::Type::UseItem };
-	command.itemName = itemName;
-	return command;
+inline Command makeUseItem(const std::string& itemId, int targetIndex = 0, int quantity = 1, int magnitudeOverride = 0) {
+    Command command{ Command::Type::UseItem };
+    command.id = itemId;
+    command.targetIndex = targetIndex;
+    command.itemQuantity = quantity;
+    command.magnitudeOverride = magnitudeOverride;
+    return command;
+}
+
+
+inline Command makeUseSkill(const std::string& skillId, int targetIndex) {
+    Command command{ Command::Type::UseSkill };
+    command.id = skillId;
+    command.targetIndex = targetIndex;
+    return command;
 }
