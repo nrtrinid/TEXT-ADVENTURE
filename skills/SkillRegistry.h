@@ -8,9 +8,12 @@ class SkillRegistry
 {
 public:
 	static const SkillRegistry& instance();
+
+	void registerSkill(const Skill& skill);
 	const Skill& get(const std::string& id) const;
+
+	void registerDefaults();
 private:
-	SkillRegistry();
 	std::unordered_map<std::string, Skill> skillTable;
 };
 

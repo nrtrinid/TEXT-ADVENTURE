@@ -1,6 +1,10 @@
 #include "MenuSetup.h"
 #include "InventoryMenu.h"
 #include "PartyMenu.h"
+
+#include "skills/Skill.h" // del later
+#include "skills/SkillRegistry.h"// and this too 
+
 #include <iostream>
 #include <string>
 
@@ -37,7 +41,7 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 					makePause(),
 					makeSetFlag("atticUnlocked"),
 					makeSetFlag("hasAtticKey", false),
-					makeRemoveItem("Attic Key"),
+					makeRemoveItem("attic_key"),
 					makeGotoMenu("attic")
 				};
 			}));
@@ -70,8 +74,8 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 			menu.addOption(MenuOption("Pick up key", "The key glows faintly, almost reassuringly", []() {
 				return CommandList{
 					makeSetFlag("hasAtticKey"),
-					makeAddItem("Attic Key", "Slightly warm.", 1, ItemType::Key),
 					makePrint("You pick up the key, it feels warm.\n"),
+					makeAddItem("attic_key"),
 					makePause()
 				};
 			}));
@@ -96,12 +100,40 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 			menu.addOption(MenuOption("Open the trunk", "It might contain something valuable.", []() {
 				return CommandList{
 					makeSetFlag("hasAtticCrystal"),
-					makeAddItem("Crystal", "A pulsating gem, warm to the touch.", ItemType::Key),
 					makePrint("Inside the trunk, you find a strange, humming crystal.\n"),
+					makeAddItem("crystal"),
 					makePause()
 				};
 			}));
 		}
+
+		menu.addOption(MenuOption("Practice magic", "Kaela channels a healing spell on herself.", [&gameState]() {
+			const auto& party = gameState.getParty();
+			auto target = party->getMemberByIndex(2); // Kaela
+			const Skill& heal = SkillRegistry::instance().get("heal_spell");
+
+			int beforeHP = target->getHP();
+			int base = heal.baseMagnitude;
+			int bonus = target->getSkillBonus(base, heal.scalingStat);
+			int totalHeal = base + bonus;
+			int maxHP = target->getMaxHP();
+			int afterHP = std::min(beforeHP + totalHeal, maxHP); // simulate result
+
+			std::string details = "Kaela focuses her thoughts...\n";
+			details += "Heal Spell: base " + std::to_string(base) +
+				" + bonus " + std::to_string(bonus) +
+				" = " + std::to_string(totalHeal) + "\n";
+			details += "HP: " + std::to_string(beforeHP) +
+				" -> " + std::to_string(afterHP) + "\n";
+
+			return CommandList{
+				makePrint(details),
+				makeUseSkill("heal_spell", 2), // still actually applies the effect
+				makePause()
+			};
+		}));
+
+
 
 		menu.addOption(MenuOption("Return downstairs", "You head back to the staircase.", []() {
 			return CommandList{

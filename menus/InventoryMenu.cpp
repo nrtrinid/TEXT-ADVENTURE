@@ -1,5 +1,6 @@
 #include "InventoryMenu.h"
 #include "Menu.h"
+#include "items/ItemRegistry.h"
 #include <iostream>
 
 void registerInventoryMenu(MenuRegistry& menuRegistry, GameState& gameState) {
@@ -8,15 +9,15 @@ void registerInventoryMenu(MenuRegistry& menuRegistry, GameState& gameState) {
 
 		const auto& items = gameState.getInventory().getItems();
 
-		for (const auto& item : items) {
-			std::string label = item.getName() + " (x" + std::to_string(item.getQuantity()) + ")";
-			std::string desc = item.getDescription();
+		for (const auto& entry : items) {
+			const auto& item = ItemRegistry::instance().get(entry.itemID);
 
-			std::string itemName = item.getName();
+			std::string label = item.name + " (x" + std::to_string(entry.quantity) + ")";
+			std::string description = item.description;
 
-			menu.addOption(MenuOption(label, desc, [itemName] {
+			menu.addOption(MenuOption(label, description, [id = entry.itemID] {
 				return CommandList{
-					makeUseItem(itemName),
+					makeUseItem(id),
 					makePause()
 				};
 			}));

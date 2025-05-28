@@ -25,6 +25,12 @@
     <Filter Include="skills">
       <UniqueIdentifier>{d1c957dd-4071-4352-9a85-c55748c4cb64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="items">
+      <UniqueIdentifier>{494eef3b-3658-4b8b-99ac-47a11f48b79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="commands">
+      <UniqueIdentifier>{6f7daec6-7b0d-4b2d-b10a-fad6945e8107}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -33,9 +39,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\Command.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="core\GameState.h">
       <Filter>core</Filter>
     </ClInclude>
@@ -53,9 +56,6 @@
     </ClInclude>
     <ClInclude Include="menus\MenuSetup.h">
       <Filter>menus</Filter>
-    </ClInclude>
-    <ClInclude Include="core\Item.h">
-      <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="core\PlayerInventory.h">
       <Filter>core</Filter>
@@ -92,6 +92,24 @@
     </ClInclude>
     <ClInclude Include="skills\SkillRegistry.h">
       <Filter>skills</Filter>
+    </ClInclude>
+    <ClInclude Include="items\Item.h">
+      <Filter>items</Filter>
+    </ClInclude>
+    <ClInclude Include="items\ItemRegistry.h">
+      <Filter>items</Filter>
+    </ClInclude>
+    <ClInclude Include="items\ItemType.h">
+      <Filter>items</Filter>
+    </ClInclude>
+    <ClInclude Include="commands\ItemCommands.h">
+      <Filter>commands</Filter>
+    </ClInclude>
+    <ClInclude Include="commands\Command.h">
+      <Filter>commands</Filter>
+    </ClInclude>
+    <ClInclude Include="effects\NoopEffect.h">
+      <Filter>effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="skills\SkillRegistry.cpp">
       <Filter>skills</Filter>
+    </ClCompile>
+    <ClCompile Include="items\ItemRegistry.cpp">
+      <Filter>items</Filter>
+    </ClCompile>
+    <ClCompile Include="commands\ItemCommands.cpp">
+      <Filter>commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
