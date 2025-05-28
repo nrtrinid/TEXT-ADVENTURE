@@ -1,14 +1,19 @@
 #pragma once
 #include <vector>
-#include "Item.h"
+#include "items/Item.h"
+
+struct InventoryEntry {
+	std::string itemID;
+	int quantity;
+};
 
 class PlayerInventory {
 public:
-	void addItem(const std::string& name, const std::string& desc, int quantity = 1, ItemType type = ItemType::Consumable);
-	void removeItem(const std::string& name, int quantity = 1);
-	const std::vector<Item>& getItems() const;
-	int getItemCount(const std::string& name) const;
+	void addItem(const std::string& itemID, int quantity = 1);
+	void removeItem(const std::string& itemID, int quantity = 1);
+	int getItemCount(const std::string& itemID) const;
+	const std::vector<InventoryEntry>& getItems() const;
 
 private:
-	std::vector<Item> items;
+	std::vector<InventoryEntry> items;
 };

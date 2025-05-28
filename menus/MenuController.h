@@ -2,7 +2,7 @@
 
 #include "MenuRegistry.h"
 #include "core/GameState.h"
-#include "core/Command.h"
+#include "commands/Command.h"
 #include <string>
 #include <vector>
 

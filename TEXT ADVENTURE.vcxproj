@@ -133,16 +133,20 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\Command.h" />
+    <ClInclude Include="commands\Command.h" />
+    <ClInclude Include="commands\ItemCommands.h" />
     <ClInclude Include="core\GameState.h" />
     <ClInclude Include="core\Input.h" />
-    <ClInclude Include="core\Item.h" />
     <ClInclude Include="core\PlayerInventory.h" />
     <ClInclude Include="effects\Effect.h" />
     <ClInclude Include="effects\EffectRegistry.h" />
     <ClInclude Include="effects\HealEffect.h" />
+    <ClInclude Include="effects\NoopEffect.h" />
     <ClInclude Include="entities\Character.h" />
     <ClInclude Include="entities\Party.h" />
+    <ClInclude Include="items\Item.h" />
+    <ClInclude Include="items\ItemRegistry.h" />
+    <ClInclude Include="items\ItemType.h" />
     <ClInclude Include="menus\InventoryMenu.h" />
     <ClInclude Include="menus\Menu.h" />
     <ClInclude Include="menus\MenuController.h" />
@@ -155,6 +159,7 @@
     <ClInclude Include="systems\SkillSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="commands\ItemCommands.cpp" />
     <ClCompile Include="core\GameState.cpp" />
     <ClCompile Include="core\Input.cpp" />
     <ClCompile Include="core\PlayerInventory.cpp" />
@@ -162,6 +167,7 @@
     <ClCompile Include="effects\HealEffect.cpp" />
     <ClCompile Include="entities\Character.cpp" />
     <ClCompile Include="entities\Party.cpp" />
+    <ClCompile Include="items\ItemRegistry.cpp" />
     <ClCompile Include="main\main.cpp" />
     <ClCompile Include="menus\InventoryMenu.cpp" />
     <ClCompile Include="menus\Menu.cpp" />

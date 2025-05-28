@@ -7,84 +7,78 @@
 
 #include "core/Input.h"
 #include "core/GameState.h"
-#include "core/Item.h"
 #include "core/PlayerInventory.h"
 
 #include "skills/SkillRegistry.h"
 #include "systems/SkillSystem.h"
 #include "effects/EffectRegistry.h"
+#include "items/Item.h"
+
 
 int main()
 {
-	{
-		Character mage("c001", "Kaela", 100);
-		mage.setStat("clarity", 5);
-		mage.setHP(10);
-		std::cout << "hurt hp:" << mage.getHP() << "\n";
-		const Skill& heal = SkillRegistry::instance().get("heal spell");
-		GameState tmpWorld;
-		SkillSystem::execute(heal, mage, mage, tmpWorld);
+	try {
+		GameState gameState;
 
-		int bonus = mage.getSkillBonus(heal.baseMagnitude, "clarity");
-		int expectedHeal = heal.baseMagnitude + bonus;
+		MenuRegistry menuRegistry;
+		MenuController menuController(menuRegistry, gameState);
 
-		std::cout << "Heal-spell test, healing " << expectedHeal
-			<< " | HP after: " << mage.getHP() << "\n\n";
-		std::cin.get();                                // pause before game loop
-	}
+		bool running = true;
+		size_t selectedIndex = 0;
 
-	GameState gameState;
+		// initalize the party
+		gameState.getParty() = std::make_shared<Party>();
 
-	MenuRegistry menuRegistry;
-	MenuController menuController(menuRegistry, gameState);
+		auto& party = gameState.getParty();
+		party->addMember(std::make_shared<Character>("c001", "Wren the Clever", 88));        // Rogue-ish intellect
+		party->addMember(std::make_shared<Character>("c002", "Bastion of Elrock", 120));     // Tanky knight
+		party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind", 95));      // Elemental mage
+		party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", 100, true)); // Mercenary bruiser
 
-	bool running = true;
-	size_t selectedIndex = 0;
+		party->getMemberByIndex(2)->setHP(50);
+		party->getMemberByIndex(0)->setHP(25);
 
-	// initalize the party
-	gameState.getParty() = std::make_shared<Party>();
+		gameState.getInventory().addItem("potion", 2);
+		gameState.getInventory().addItem("elixir");
+		gameState.getInventory().addItem("potion"); // should stack
 
-	auto& party = gameState.getParty();
-	party->addMember(std::make_shared<Character>("c001", "Wren the Clever", 88));        // Rogue-ish intellect
-	party->addMember(std::make_shared<Character>("c002", "Bastion of Elrock", 120));     // Tanky knight
-	party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind", 95));      // Elemental mage
-	party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", 100, true)); // Mercenary bruiser
+		registerMenus(menuRegistry, menuController, gameState);
 
-	gameState.getInventory().addItem("Potion", "Heals 20 HP", 2);
-	gameState.getInventory().addItem("Elixir", "Restores all HP and MP");
-	gameState.getInventory().addItem("Potion", "Heals 20 HP"); // should stack
+		menuController.setCurrentMenu("old mansion");
 
-	registerMenus(menuRegistry, menuController, gameState);
+		while (running) {
+			std::cout << "\x1B[2J\x1B[H"; // clear entire screen and reset cursor
 
-	menuController.setCurrentMenu("old mansion");
+			menuController.displayCurrentMenu(selectedIndex);
 
-	while (running) {
-		std::cout << "\x1B[2J\x1B[H"; // clear entire screen and reset cursor
+			// Handle input
+			InputKey key = getInput();
+			const size_t optionCount = menuRegistry.getMenu(menuController.getCurrentMenuName()).getMenuOptions().size();
 
-		menuController.displayCurrentMenu(selectedIndex);
+			switch (key) {
+			case InputKey::Up:
+				if (selectedIndex == 0)
+					selectedIndex = optionCount - 1;
+				else
+					--selectedIndex;
+				break;
+			case InputKey::Down:
+				selectedIndex = (selectedIndex + 1) % optionCount;
+				break;
+			case InputKey::Enter:
+				system("cls");
+				menuController.processInput(selectedIndex + 1);
+				selectedIndex = 0;
+				break;
 
-		// Handle input
-		InputKey key = getInput();
-		const size_t optionCount = menuRegistry.getMenu(menuController.getCurrentMenuName()).getMenuOptions().size();
-
-		switch (key) {
-		case InputKey::Up:
-			if (selectedIndex == 0)
-				selectedIndex = optionCount - 1;
-			else
-				--selectedIndex;
-			break;
-		case InputKey::Down:
-			selectedIndex = (selectedIndex + 1) % optionCount;
-			break;
-		case InputKey::Enter:
-			system("cls");
-			menuController.processInput(selectedIndex + 1);
-			selectedIndex = 0;
-			break;
-
-		default:
-			break;
+			default:
+				break;
+			}
 		}
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
+		std::cin.get(); // optional pause
+		return 1;
 	}
 }

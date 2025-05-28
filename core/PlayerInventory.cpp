@@ -1,20 +1,20 @@
 #include "PlayerInventory.h"
 
-void PlayerInventory::addItem(const std::string& name, const std::string& description, int quantity, ItemType type) {
-	for (auto& i : items) {
-		if (i.getName() == name) {
-			i.increment(quantity);
+void PlayerInventory::addItem(const std::string& itemID, int quantity) {
+	for (auto& entry : items) {
+		if (entry.itemID == itemID) {
+			entry.quantity += quantity;
 			return;
 		}
 	}
-	items.emplace_back(name, description, quantity, type);
+	items.push_back({ itemID, quantity });
 }
 
-void PlayerInventory::removeItem(const std::string& name, int quantity) {
+void PlayerInventory::removeItem(const std::string& itemID, int quantity) {
 	for (auto it = items.begin(); it != items.end(); ++it) {
-		if (it->getName() == name) {
-			if (it->getQuantity() > quantity) {
-				it->decrement(quantity);
+		if (it->itemID == itemID) {
+			if (it->quantity > quantity) {
+				it->quantity -= quantity;
 			}
 			else {
 				items.erase(it); // remove if quantity drops to 0 or below
@@ -24,15 +24,15 @@ void PlayerInventory::removeItem(const std::string& name, int quantity) {
 	}
 }
 
-const std::vector<Item>& PlayerInventory::getItems() const {
-	return items;
-}
-
-int PlayerInventory::getItemCount(const std::string& name) const {
-	for (const auto& item : items) {
-		if (item.getName() == name) {
-			return item.getQuantity();
+int PlayerInventory::getItemCount(const std::string& itemID) const {
+	for (const auto& entry : items) {
+		if (entry.itemID == itemID) {
+			return entry.quantity;
 		}
 	}
 	return 0; // not found
+}
+
+const std::vector<InventoryEntry>& PlayerInventory::getItems() const {
+	return items;
 }

@@ -17,12 +17,22 @@ void registerPartyMenu(MenuRegistry& menuRegistry, GameState& gameState) {
 				description += " (Mercenary)";
 			}
 
-			menu.addOption(MenuOption(label, description, [] {
+			menu.addOption(MenuOption(label, description, [member] {
+				std::string details = member->getName() + "\n";
+				details += "HP: " + std::to_string(member->getHP()) + "/" + std::to_string(member->getMaxHP()) + "\n";
+				details += "POW: " + std::to_string(member->getStat("power")) + "\n";
+				details += "CLAR: " + std::to_string(member->getStat("clarity")) + "\n";
+				// Add more stats if desired
+
+				if (member->isMercenary()) {
+					details += "(Mercenary)\n";
+				}
+
 				return CommandList{
-					makePrint("Placehholder for future interaction"),
-					makePause() 
+					makePrint(details),
+					makePause()
 				};
-			}));
+				}));
 		}
 			return menu;
 	});

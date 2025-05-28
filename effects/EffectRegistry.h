@@ -8,10 +8,13 @@ class EffectRegistry
 {
 public:
 	static const EffectRegistry& instance(); // global accessor
+
+	void registerEffect(const std::string& id, std::unique_ptr<Effect> effect);
 	const Effect& get(const std::string& id) const;
 
+	void registerDefaults();
+
 private:
-	EffectRegistry(); // fills table once
 	std::unordered_map<std::string, std::unique_ptr<Effect>> effectTable;
 };
 

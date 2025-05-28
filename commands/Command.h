@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Item.h"
+#include "items/Item.h"
 #include <string>
 #include <vector>
 
@@ -26,10 +26,7 @@ struct Command {
     bool enabled{};         // used by setFlag (true = set, false = unset)
 
     // inventory
-    std::string itemName;         // addItem / removeItem
-    std::string itemDescription;  // optional, addItem
     int itemQuantity = 1;         // affects addItem / removeItem
-    ItemType itemType = ItemType::Consumable;
 
     // game action (skill/item use)
     std::string id;               // item or skill ID (for useItem / useSkill)
@@ -64,22 +61,16 @@ inline Command makePopMenu() {
 	return Command{ Command::Type::PopMenu };
 }
 
-inline Command makeAddItem(const std::string& name, const std::string& description, int quantity = 1, ItemType type = ItemType::Consumable) {
-	Command command{ Command::Type::AddItem };
-	command.itemName = name;
-	command.itemDescription = description;
-	command.itemQuantity = quantity;
-	command.itemType = type;
-	return command;
+inline Command makeAddItem(const std::string& itemID, int quantity = 1) {
+    Command command{ Command::Type::AddItem };
+    command.id = itemID;
+    command.itemQuantity = quantity;
+    return command;
 }
 
-inline Command makeAddItem(const std::string& name, const std::string& description, ItemType type) {
-	return makeAddItem(name, description, 1, type);
-}
-
-inline Command makeRemoveItem(const std::string& name, int quantity = 1) {
+inline Command makeRemoveItem(const std::string& itemID, int quantity = 1) {
 	Command command{ Command::Type::RemoveItem };
-	command.itemName = name;
+	command.id = itemID;
 	command.itemQuantity = quantity;
 	return command;
 }
