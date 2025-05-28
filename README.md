@@ -1,56 +1,82 @@
-# TEXT ADVENTURE
+# Text Adventure RPG Engine
 
-A C++ text-based RPG built with a modular engine, supporting cross-platform builds using CMake and a terminal-based interface for Windows and Linux.
+A modular, terminal-based RPG engine built in modern C++. Inspired by classic games like *Zork* and *Wizardry*, this project serves as both a learning playground and a foundation for building a full-featured text-based RPG.
 
-## ✅ Working Features
-
-- 📦 **Modular Menu System**  
-  Menus are dynamically registered and stackable, supporting flexible navigation and decoupled display/input logic.
-
-- 🎮 **Party System**  
-  Supports both static (player) and dynamic (mercenary) parties, with full character rendering and type classification.
-
-- 🧠 **Early `GameState` System**  
-  Tracks persistent world flags and conditional logic across menus and commands.
-
-- 🎨 **ANSI Terminal Rendering**  
-  Clean, color-coded output with smooth screen redraws using ANSI escape sequences.
-
-- ⌨️ **Command Parser (WIP)**  
-  Basic infrastructure for handling typed commands and input validation.
-
-## 🚧 Planned Features
-
-- 🧱 ASCII dungeon layouts with directional movement
-- ⏱️ QTE-style timing-based combat system
-- 🎒 Inventory and item usage system
-- ⚔️ Mercenary dungeon mode with permadeath + randomized loot
-- 🔄 Save/load functionality and serialization of game state
-
-## 🛠️ Tools Used
-
-- C++17  
-- Visual Studio 2022  
-- Git version control  
-
-## 🧪 How to Build
-
-### Windows (Visual Studio Code)
-- Make sure CMake and a C++ compiler (MSVC or MinGW) are installed
-- Open the folder in VS Code
-- Run `CMake: Configure` and `CMake: Build` from the Command Palette
-- Run the executable from the `build/` directory
-
-### Linux / WSL
-```bash
-git clone https://github.com/nrtrinid/TEXT-ADVENTURE.git
-cd TEXT-ADVENTURE
-cmake -B build
-cmake --build build
-./build/text-adventure
-```
 ---
 
-## 🧠 About This Project
+## 🚀 Features
 
-> 🎯 This project is a personal exploration of clean C++ architecture in game design — a focus on modularity, separation of concerns, and extensibility in a terminal-based RPG environment.
+### 🧱 Core Architecture
+- **Modular Command System**: Flexible runtime behavior using `Command` objects like `UseItem`, `SetFlag`, and `GotoMenu`, with separate handlers for skills and items.
+- **Dynamic Menu System**: Supports stacked menus, navigable via keyboard, with hoverable descriptions and submenu transitions.
+- **Central Game State**: `GameState` manages inventory, parties, flags, and world context.
+
+### 🧙 Characters & Parties
+- `Character` class with dynamic stats, HP, level, and mercenary flag
+- `Party` management system (player vs. mercenaries)
+
+### 🧪 Items & Effects
+- `ItemRegistry` for template-based item definitions
+- `EffectRegistry` system to decouple item logic (healing, restoration, etc.)
+- Inline item creation and command integration
+
+### 🧠 Skills & Stat Scaling
+- `SkillSystem` that scales skill magnitude based on configured character stats
+- Polymorphic commands for activating skills through character attributes
+
+### ⚔️ Equipment System (In Progress)
+- Planned gear slots: weapon, helmet, chest, boots, and 2 trinkets
+- Future support for stat bonuses, gear leveling, and enchantments
+
+---
+
+## 🛠️ Building
+
+This project uses **CMake** and is tested with **Visual Studio** on Windows.
+
+### Requirements
+- CMake 3.15+
+- Visual Studio 2019+ (or any C++17-compatible compiler)
+
+### Build Steps
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Debug
+```
+
+Or open the `.sln` in Visual Studio and build from there.
+
+---
+
+## 📂 Project Structure
+
+```
+core/        - GameState, Input handling, Inventory
+menus/       - Menu engine, controllers, InventoryMenu
+commands/    - Command types and behavior executors
+items/       - Item definitions, registry, and item types
+effects/     - Modular effect logic (e.g., healing)
+entities/    - Character and party classes
+main/        - Entry point and game loop
+docs/        - Changelog and future planning
+```
+
+---
+
+## 🧭 Roadmap
+
+- [ ] Equipment system with gear slots and UI integration
+- [ ] Combat loop and skill targeting
+- [ ] Procedural dungeon exploration (mercenary auto-play)
+- [ ] Relationship and personality system for mercenaries
+- [ ] Save/load system
+- [ ] Scripted scenarios using commands and flags
+
+---
+
+## 💬 License & Contribution
+
+Currently a personal learning project in early development and undergoing frequent refactors.

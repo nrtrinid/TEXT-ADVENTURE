@@ -112,6 +112,5 @@ void MenuController::executeCommands(const std::vector<Command>& commands) {
 		case Command::Type::UseItem: executeUseItem(command, gameState); break;
 		case Command::Type::UseSkill: executeUseSkill(command, gameState); break;
 		}
-
 	}
 }
