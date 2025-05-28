@@ -5,10 +5,29 @@ All notable changes to this project will be documented here.
 ## [Unreleased]
 
 ### Planned
-- ItemRegistry for consumable behavior
-- Effect-driven `UseItem` system
 - ASCII dungeon layout system
 - QTE-style combat
+- Character progression with experience and leveling
+- Refactor Skill command system
+
+---
+
+## [v0.4.0] - 2025-05-27
+
+### Added
+- Implemented item system using `ItemRegistry` for reusable item definitions
+- Introduced `EffectRegistry` to handle item effects, including:
+  - `HealEffect` and full HP restoration logic
+  - `NoopEffect` for key items with no active behavior
+- Integrated item usage with `Command::UseItem` and `makeUseItem()`
+- Updated `PartyMenu` to show character HP and support item selection
+
+### Changed
+- Refactored `Command` structure for cleaner item-related fields
+- Improved debug output for healing skills to show base + bonus
+- Cleaned up `MenuController` logic for switching menus
+- Updated CMakeLists.txt to include `systems/`, `effects/`, `items/`, `skills/`, and `commands/`
+
 
 ---
 
