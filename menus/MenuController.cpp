@@ -2,6 +2,8 @@
 #include "skills/SkillRegistry.h"
 #include "systems/SkillSystem.h"
 #include "commands/ItemCommands.h"
+#include "commands/ItemCommands.h"
+#include "commands/SkillCommands.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -108,15 +110,7 @@ void MenuController::executeCommands(const std::vector<Command>& commands) {
 		case Command::Type::AddItem: executeAddItem(command, gameState); break;
 		case Command::Type::RemoveItem: executeRemoveItem(command, gameState); break;
 		case Command::Type::UseItem: executeUseItem(command, gameState); break;
-		case Command::Type::UseSkill: {
-			const auto& skill = SkillRegistry::instance().get(command.id);
-			auto& party = gameState.getParty();
-			auto user = party->getMemberByIndex(0); // or some default
-			auto target = party->getMemberByIndex(command.targetIndex);
-			SkillSystem::execute(skill, *user, *target, gameState);
-			break;
-		}
-
+		case Command::Type::UseSkill: executeUseSkill(command, gameState); break;
 		}
 
 	}

@@ -111,6 +111,9 @@
     <ClInclude Include="effects\NoopEffect.h">
       <Filter>effects</Filter>
     </ClInclude>
+    <ClInclude Include="commands\SkillCommands.h">
+      <Filter>commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
@@ -162,6 +165,9 @@
       <Filter>items</Filter>
     </ClCompile>
     <ClCompile Include="commands\ItemCommands.cpp">
+      <Filter>commands</Filter>
+    </ClCompile>
+    <ClCompile Include="commands\SkillCommands.cpp">
       <Filter>commands</Filter>
     </ClCompile>
   </ItemGroup>

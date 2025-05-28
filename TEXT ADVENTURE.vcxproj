@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="commands\Command.h" />
     <ClInclude Include="commands\ItemCommands.h" />
+    <ClInclude Include="commands\SkillCommands.h" />
     <ClInclude Include="core\GameState.h" />
     <ClInclude Include="core\Input.h" />
     <ClInclude Include="core\PlayerInventory.h" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="commands\ItemCommands.cpp" />
+    <ClCompile Include="commands\SkillCommands.cpp" />
     <ClCompile Include="core\GameState.cpp" />
     <ClCompile Include="core\Input.cpp" />
     <ClCompile Include="core\PlayerInventory.cpp" />
