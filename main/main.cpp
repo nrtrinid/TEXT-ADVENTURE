@@ -47,7 +47,7 @@ int main()
 		menuController.setCurrentMenu("old mansion");
 
 		while (running) {
-			std::cout << "\x1B[2J\x1B[H"; // clear entire screen and reset cursor
+			std::cout << "\033[H"; // reset cursor to redraw arrow
 
 			menuController.displayCurrentMenu(selectedIndex);
 
