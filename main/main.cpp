@@ -69,6 +69,7 @@ int main()
 				system("cls");
 				menuController.processInput(selectedIndex + 1);
 				selectedIndex = 0;
+				if (menuController.wantsToQuit()) running = false;
 				break;
 
 			default:

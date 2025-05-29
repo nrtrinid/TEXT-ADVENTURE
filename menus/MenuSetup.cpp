@@ -38,10 +38,10 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 			menu.addOption(MenuOption("Crumbling Staircase", "It looks like it leads to a door", [] {
 				return CommandList{
 					makePrint("The door unlocks!\n"),
-					makePause(),
 					makeSetFlag("atticUnlocked"),
 					makeSetFlag("hasAtticKey", false),
 					makeRemoveItem("attic_key"),
+					makePause(),
 					makeGotoMenu("attic")
 				};
 			}));
@@ -144,7 +144,7 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 		return menu;
 	});
 
-	Menu pause("pause menu", "Menu", "System Options", MenuType::System);
+	Menu pause("pause_menu", "Menu", "System Options", MenuType::System);
 	
 	pause.addOption(MenuOption("Party", "View party", [] {
 		return CommandList{	makeGotoMenu("party", true) };
@@ -158,7 +158,22 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 		return CommandList{ makePopMenu() };
 	}));
 
+	pause.addOption(MenuOption("Quit", "Exit the game", [] {
+		return CommandList{ makeGotoMenu("confirm_quit", true) };
+		}));
+
+	Menu confirm("confirm_quit", "Are you sure?", "Are you sure you want to quit?", MenuType::System);
+
+	confirm.addOption(MenuOption("Yes", "Exit the game", [] {
+		return CommandList{ makeQuitGame() };
+	}));
+
+	confirm.addOption(MenuOption("No", "Return to previous menu", [] {
+		return CommandList{ makePopMenu() };
+	}));
+
 	menuRegistry.addStaticMenu(pause);
+	menuRegistry.addStaticMenu(confirm);
 
 	registerInventoryMenu(menuRegistry, gameState);
 	registerPartyMenu(menuRegistry, gameState);

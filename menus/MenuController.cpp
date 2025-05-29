@@ -69,8 +69,26 @@ void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 
 	// display the menu items
 	for (size_t i = 0; i < menuOptions.size(); ++i) {
-		std::cout << (i == selectedIndex ? "> " : "  ");
-		std::cout << menuOptions[i].name << "\n";
+		const auto& option = menuOptions[i];
+		std::string color;
+
+		// Special case for "Quit"
+		if (option.name == "Quit" && i == selectedIndex) {
+			color = MenuOption::COLOR_RED;
+		}
+		else if (i == selectedIndex) {
+			color = MenuOption::COLOR_DIM;
+		}
+		else {
+			color = option.colorCode;
+		}
+
+		if (i == selectedIndex) {
+			std::cout << color << "> " << option.name << MenuOption::COLOR_RESET << "\n";
+		}
+		else {
+			std::cout << "  " << option.colorCode << option.name << MenuOption::COLOR_RESET << "\n";
+		}
 	}
 
 	std::cout << "\n";
@@ -99,6 +117,10 @@ const std::string& MenuController::getCurrentMenuName() const {
 	return currentMenuName;
 }
 
+bool MenuController::wantsToQuit() const {
+	return shouldExit;
+}
+
 void MenuController::executeCommands(const std::vector<Command>& commands) {
 	for (const auto& command : commands) {
 		switch (command.type) {
@@ -107,6 +129,7 @@ void MenuController::executeCommands(const std::vector<Command>& commands) {
 		case Command::Type::SetFlag: gameState.setFlag(command.flag, command.enabled); break;
 		case Command::Type::GotoMenu: setCurrentMenu(command.target, command.enabled); break;
 		case Command::Type::PopMenu: returnToPreviousMenu(); break;
+		case Command::Type::QuitGame: shouldExit = true; break;
 		case Command::Type::AddItem: executeAddItem(command, gameState); break;
 		case Command::Type::RemoveItem: executeRemoveItem(command, gameState); break;
 		case Command::Type::UseItem: executeUseItem(command, gameState); break;

@@ -11,6 +11,7 @@ struct Command {
         SetFlag,
         GotoMenu,
         PopMenu,
+        QuitGame,
         AddItem,
         RemoveItem,
         UseItem,
@@ -59,6 +60,10 @@ inline Command makeSetFlag(const std::string& flagName, bool enabled = true) {
 
 inline Command makePopMenu() {
 	return Command{ Command::Type::PopMenu };
+}
+
+inline Command makeQuitGame() {
+    return { Command::Type::QuitGame };
 }
 
 inline Command makeAddItem(const std::string& itemID, int quantity = 1) {
