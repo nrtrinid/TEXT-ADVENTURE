@@ -30,7 +30,9 @@ void registerPartyMenu(MenuRegistry& menuRegistry, GameState& gameState) {
 
 				return CommandList{
 					makePrint(details),
-					makePause()
+					makePause(),
+					makePrint("\033[2J\033[H"), // Clear entire screen after showing stats
+
 				};
 				}));
 		}
