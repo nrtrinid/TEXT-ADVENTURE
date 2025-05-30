@@ -14,7 +14,6 @@
 #include "effects/EffectRegistry.h"
 #include "items/Item.h"
 
-
 int main()
 {
 	try {

@@ -129,7 +129,8 @@ void registerMenus(MenuRegistry& menuRegistry, MenuController& menuController, G
 			return CommandList{
 				makePrint(details),
 				makeUseSkill("heal_spell", 2), // still actually applies the effect
-				makePause()
+				makePause(),
+				makePrint("\033[2J\033[H"), // Clear entire screen after showing stats
 			};
 		}));
 

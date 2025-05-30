@@ -145,6 +145,10 @@
     <ClInclude Include="effects\NoopEffect.h" />
     <ClInclude Include="entities\Character.h" />
     <ClInclude Include="entities\Party.h" />
+    <ClInclude Include="equipment\Equippable.h" />
+    <ClInclude Include="equipment\Slot.h" />
+    <ClInclude Include="equipment\StatModifier.h" />
+    <ClInclude Include="equipment\UpgradeInfo.h" />
     <ClInclude Include="items\Item.h" />
     <ClInclude Include="items\ItemRegistry.h" />
     <ClInclude Include="items\ItemType.h" />
@@ -169,6 +173,8 @@
     <ClCompile Include="effects\HealEffect.cpp" />
     <ClCompile Include="entities\Character.cpp" />
     <ClCompile Include="entities\Party.cpp" />
+    <ClCompile Include="equipment\Equippable.cpp" />
+    <ClCompile Include="equipment_test.cpp" />
     <ClCompile Include="items\ItemRegistry.cpp" />
     <ClCompile Include="main\main.cpp" />
     <ClCompile Include="menus\InventoryMenu.cpp" />
