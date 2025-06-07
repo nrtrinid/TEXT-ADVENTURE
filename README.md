@@ -24,9 +24,14 @@ A modular, terminal-based RPG engine built in modern C++. Inspired by classic ga
 - `SkillSystem` that scales skill magnitude based on configured character stats
 - Polymorphic commands for activating skills through character attributes
 
-### ⚔️ Equipment System (In Progress)
-- Planned gear slots: weapon, helmet, chest, boots, and 2 trinkets
-- Future support for stat bonuses, gear leveling, and enchantments
+### ⚔️ Equipment System
+- Fully implemented gear slots: Mainhand, Offhand, Helmet, Armor, Boots, Trinkets
+- Dynamic equipping and unequipping menus with real-time stat previews
+- Multi-slot gear support (e.g., two-handed weapons)
+- Automatic inventory synchronization upon gear changes
+- Gear descriptions show stat modifiers dynamically ("+3 power, +1 resolve")
+- Future: planned gear leveling, upgrades, and enchantments
+
 
 ---
 

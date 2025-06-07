@@ -8,6 +8,34 @@ All notable changes to this project will be documented here.
 - ASCII dungeon layout system
 - QTE-style combat
 - Character progression with experience and leveling
+- Skill usage outside combat
+- Equippable item upgrades and enhancements
+- Generalized targeting menu
+
+---
+
+## [v0.6.0] - 2025-06-07
+
+### Added
+- **Dynamic equipment system** with full gear slot integration
+- `EquipSlotMenu` for intuitive slot-specific equipping
+- `EquipTargetMenu` for selecting who equips gear from the inventory
+- `GameState::equipItem` and `GameState::unequipSlot` manage inventory sync
+- Commands: `EquipItem`, `UnequipItem` with proper handling in `CommandProcessor`
+- Hover descriptions for gear showing stat modifiers (e.g., "+3 power")
+- Consistent navigation using stacked `pushMenu()` and registered `gotoMenu(...)`
+
+### Changed
+- `CharacterMenu` redesigned to show gear clearly aligned by slot with inline descriptions
+- Improved menu cursor behavior to prevent overflow errors
+- Cleaned up menu factories and character-menu registration to avoid redundant rebuilds
+- Refactored `ItemRegistry` with `tryGet()` and safe `getEquippable()` casts
+- Improved stability and safety checks for dynamic menus
+
+### Fixed
+- Crash and softlock issues when equipping incompatible gear
+- Inventory sync issues causing item duplication or loss upon equipping
+- Temporary UI bugs affecting hover descriptions and stat displays
 
 ---
 

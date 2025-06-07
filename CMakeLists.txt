@@ -7,22 +7,18 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(${CMAKE_SOURCE_DIR})
 
 # Gather all .cpp and .h files recursively from source directories
+# Recursively gather all .cpp and .h files
 file(GLOB_RECURSE SOURCES
-     core/*.cpp core/*.h
-     entities/*.cpp entities/*.h
-     equipment/*.cpp equipment/*.h
-     systems/*.cpp systems/*.h
-     menus/*.cpp menus/*.h
-     effects/*.cpp effects/*.h
-     items/*.cpp items/*.h
-     skills/*.cpp skills/*.h
-     commands/*.cpp commands/*.h
-     main/*.cpp main/*.h)
+    core/*.cpp core/*.h
+    commands/*.cpp commands/*.h
+    effects/*.cpp effects/*.h
+    entities/*.cpp entities/*.h
+    equipment/*.cpp equipment/*.h
+    items/*.cpp items/*.h
+    main/*.cpp main/*.h
+    menus/*.cpp menus/*.h
+    skills/*.cpp skills/*.h
+    systems/*.cpp systems/*.h)
 
-
-# Create the executable
+# Main executable
 add_executable(text-adventure ${SOURCES})
-
-# Equipment test harness (loose file in root)
-add_executable(equipment_test equipment_test.cpp)
-target_include_directories(equipment_test PRIVATE ${CMAKE_SOURCE_DIR})
