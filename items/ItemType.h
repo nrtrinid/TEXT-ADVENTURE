@@ -4,5 +4,5 @@
 enum class ItemType {
 	Consumable,
 	Key,
-	Equipment
+	Equippable
 };

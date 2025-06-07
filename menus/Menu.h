@@ -44,8 +44,8 @@ public:
 private:
 	MenuType menuType = MenuType::World; // default to world menu type
 
-	std::string id;
-	std::string name;
-	std::string description;
-	std::vector<MenuOption> menuOptions;
+	std::string id_;
+	std::string name_;
+	std::string description_;
+	std::vector<MenuOption> menuOptions_;
 };

@@ -10,32 +10,13 @@
 
 // constructor to initialize the menu controller with a reference to the menu registry
 MenuController::MenuController(MenuRegistry& menuRegistry, GameState& gameState)
-	: menuRegistry(menuRegistry), gameState(gameState), currentMenuName("???") {}
+	: menuRegistry_(menuRegistry), gameState_(gameState), commandProcessor_(gameState, *this) {}
 
-
-void MenuController::returnToPreviousMenu() {
-	if (!menuStack.empty()) {
-		currentMenuName = menuStack.back();
-		menuStack.pop_back();
-	}
-}
-
-// set the current menu by ID (not display name)
-void MenuController::setCurrentMenu(const std::string& menuId, bool remember) {
-	if (menuRegistry.hasMenu(menuId)) {
-		if (remember) {
-			menuStack.push_back(currentMenuName);
-		}
-		currentMenuName = menuId;
-	}
-	else {
-		throw std::invalid_argument("Menu not found: " + menuId);
-	}
-}
 
 // display the current menu
 void MenuController::displayCurrentMenu(size_t selectedIndex) const {
-	const Menu& menu = menuRegistry.getMenu(currentMenuName);
+	Menu menu = activeMenu();
+
 	const auto& menuOptions = menu.getMenuOptions();
 	MenuType type = menu.getType();
 
@@ -60,6 +41,10 @@ void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 		std::cout << "+" << std::string(totalWidth, '=') << "+\n\n"; // bottom border
 
 		std::cout << "\033[0m"; // reset color
+
+		if (!menu.getDescription().empty()) {
+			std::cout << menu.getDescription() << "\n\n";
+		}
 	}
 	else {
 		std::cout << "\x1B[2K";
@@ -101,39 +86,50 @@ void MenuController::displayCurrentMenu(size_t selectedIndex) const {
 
 // process the user's input
 void MenuController::processInput(size_t choice) {
-	const Menu& menu = menuRegistry.getMenu(currentMenuName); // read-only reference to the current menu
-	const auto& menuItems = menu.getMenuOptions(); // read-only reference to the menu items
+	Menu menu = activeMenu(); // read-only reference to the menu
+	const auto& menuOptions = menu.getMenuOptions(); // read-only reference to the menu items
 
 	// check if the choice is valid
-	if (choice > 0 && choice <= menuItems.size()) {
-		executeCommands(menuItems[choice - 1].action()); // execute the action associated with the chosen menu item
-	}
-	else {
+	if (choice == 0 || choice > menuOptions.size()) {
 		std::cout << "Invalid choice. Please try again." << std::endl;
+		return;
 	}
+	executeCommands(menuOptions[choice - 1].action(*this)); // execute the action associated with the chosen menu item
 }
 
-const std::string& MenuController::getCurrentMenuName() const {
-	return currentMenuName;
-}
-
-bool MenuController::wantsToQuit() const {
-	return shouldExit;
+const std::string& MenuController::getCurrentMenuID() const {
+	return currentMenuID_;
 }
 
 void MenuController::executeCommands(const std::vector<Command>& commands) {
-	for (const auto& command : commands) {
-		switch (command.type) {
-		case Command::Type::Print: std::cout << command.text; break;
-		case Command::Type::Pause: std::cin.get(); break;
-		case Command::Type::SetFlag: gameState.setFlag(command.flag, command.enabled); break;
-		case Command::Type::GotoMenu: setCurrentMenu(command.target, command.enabled); break;
-		case Command::Type::PopMenu: returnToPreviousMenu(); break;
-		case Command::Type::QuitGame: shouldExit = true; break;
-		case Command::Type::AddItem: executeAddItem(command, gameState); break;
-		case Command::Type::RemoveItem: executeRemoveItem(command, gameState); break;
-		case Command::Type::UseItem: executeUseItem(command, gameState); break;
-		case Command::Type::UseSkill: executeUseSkill(command, gameState); break;
-		}
+	commandProcessor_.executeCommands(commands);
+}
+
+// menuNavigator implementation
+void MenuController::pushMenu(std::shared_ptr<Menu> menu) {
+	dynamicStack_.push_back(std::move(menu));
+}
+
+void MenuController::popMenu() {
+	if (!dynamicStack_.empty()) dynamicStack_.pop_back();
+	else returnToPreviousMenu();
+}
+
+void MenuController::gotoMenu(const std::string& id, bool remember) {
+	if (remember) idStack_.push_back(currentMenuID_);
+	currentMenuID_ = id;
+}
+
+// helper to fetch active menu
+Menu MenuController::activeMenu() const {
+	return dynamicStack_.empty()
+		? menuRegistry_.getMenu(currentMenuID_)
+		: *dynamicStack_.back();
+}
+
+void MenuController::returnToPreviousMenu() {
+	if (!idStack_.empty()) {
+		currentMenuID_ = idStack_.back();
+		idStack_.pop_back();
 	}
 }

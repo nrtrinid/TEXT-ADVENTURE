@@ -23,6 +23,7 @@ public:
 
     std::shared_ptr<Character> getMemberByID(const std::string& id) const;
     std::shared_ptr<Character> getMemberByIndex(size_t index) const;
+    int getIndexOf(const std::shared_ptr<Character>& character) const;
 
     const std::vector<std::shared_ptr<Character>>& getMembers() const;
 

@@ -8,7 +8,26 @@ All notable changes to this project will be documented here.
 - ASCII dungeon layout system
 - QTE-style combat
 - Character progression with experience and leveling
-- Refactor Skill command system
+
+---
+
+## [v0.5.0] - 2025-05-30
+
+### Added
+- Fully implemented equipment system with defined gear slots (`Mainhand`, `Offhand`, `Helmet`, `Armor`, etc.)
+- `Character::equip()` and `unequip()` with automatic slot conflict resolution
+- Stat modifiers now dynamically affect characters (e.g., `resolve` -> max HP scaling)
+- Supports multi-slot items like greatswords (Mainhand + Offhand)
+- Added proportional HP adjustment on stat-based max HP changes
+- Created `equipment_test.cpp` for verifying edge cases like:
+  - Slot replacement
+  - Multi-slot conflicts
+  - Negative stat modifiers
+  - Scaling HP from full or damaged states
+
+### Changed
+- Updated `CMakeLists.txt` to include `equipment/` directory and build a test harness (`equipment_test`)
+- Refined equip/unequip logic for stability and clean state management
 
 ---
 

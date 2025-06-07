@@ -9,7 +9,7 @@
 namespace SkillSystem {
 
 	inline int computeSkillMagnitude(const Character& character, int baseMagnitude, std::string_view scalingStat) {
-		return baseMagnitude + character.getSkillBonus(baseMagnitude, scalingStat);
+		return baseMagnitude + character.getSkillBonus(scalingStat);
 	}
 
 	inline void execute(const Skill& skill, Character& caster, Character& target, GameState& gameState) {

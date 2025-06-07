@@ -10,6 +10,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 file(GLOB_RECURSE SOURCES
      core/*.cpp core/*.h
      entities/*.cpp entities/*.h
+     equipment/*.cpp equipment/*.h
      systems/*.cpp systems/*.h
      menus/*.cpp menus/*.h
      effects/*.cpp effects/*.h
@@ -21,3 +22,7 @@ file(GLOB_RECURSE SOURCES
 
 # Create the executable
 add_executable(text-adventure ${SOURCES})
+
+# Equipment test harness (loose file in root)
+add_executable(equipment_test equipment_test.cpp)
+target_include_directories(equipment_test PRIVATE ${CMAKE_SOURCE_DIR})

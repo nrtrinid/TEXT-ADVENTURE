@@ -31,6 +31,9 @@
     <Filter Include="commands">
       <UniqueIdentifier>{6f7daec6-7b0d-4b2d-b10a-fad6945e8107}</UniqueIdentifier>
     </Filter>
+    <Filter Include="equipment">
+      <UniqueIdentifier>{49e7af91-ebaa-4afa-af4e-a22476d07836}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -114,6 +117,21 @@
     <ClInclude Include="commands\SkillCommands.h">
       <Filter>commands</Filter>
     </ClInclude>
+    <ClInclude Include="equipment\Equippable.h">
+      <Filter>equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\Slot.h">
+      <Filter>equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\StatModifier.h">
+      <Filter>equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\UpgradeInfo.h">
+      <Filter>equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="menus\EquipTargetMenu.h">
+      <Filter>menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
@@ -169,6 +187,13 @@
     </ClCompile>
     <ClCompile Include="commands\SkillCommands.cpp">
       <Filter>commands</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\Equippable.cpp">
+      <Filter>equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment_test.cpp" />
+    <ClCompile Include="menus\EquipTargetMenu.cpp">
+      <Filter>menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
