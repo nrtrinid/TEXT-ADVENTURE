@@ -12,7 +12,7 @@
 class Character
 {
 public:
-	Character(std::string id, std::string name, int maxHp, bool isMercenary = false);
+	Character(std::string id, std::string name, bool isMercenary = false);
 
 	static constexpr std::size_t SlotCount = static_cast<std::size_t>(Slot::COUNT);
 
@@ -21,7 +21,7 @@ public:
 	int getLevel() const;
 	int getBaseStat(std::string_view name) const;
 	int getStat(std::string_view name) const;
-	int getSkillBonus(int baseMagnitude, std::string_view stat) const;
+	int getSkillBonus(std::string_view stat) const;
 	int getHP() const;
 	int getMaxHP() const;
 	bool isMercenary() const;

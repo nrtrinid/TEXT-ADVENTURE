@@ -29,21 +29,34 @@ int main()
 		gameState.getParty() = std::make_shared<Party>();
 
 		auto& party = gameState.getParty();
-		party->addMember(std::make_shared<Character>("c001", "Wren the Clever", 88));        // Rogue-ish intellect
-		party->addMember(std::make_shared<Character>("c002", "Bastion of Elrock", 120));     // Tanky knight
-		party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind", 95));      // Elemental mage
-		party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", 100, true)); // Mercenary bruiser
+		party->addMember(std::make_shared<Character>("c001", "Wren the Clever"));        // Rogue-ish intellect
+		party->addMember(std::make_shared<Character>("c002", "Bastion of Elrock"));     // Tanky knight
+		party->addMember(std::make_shared<Character>("c003", "Kaela the Ashwind"));      // Elemental mage
+		party->addMember(std::make_shared<Character>("c004", "Thorn Gristlefang", true)); // Mercenary bruiser
 
-		party->getMemberByIndex(2)->setHP(50);
-		party->getMemberByIndex(0)->setHP(25);
+		party->getMemberByIndex(0)->setStat("resolve", 20);
+		party->getMemberByIndex(2)->setStat("resolve", 20);
+		party->getMemberByIndex(2)->setHP(10);
+		party->getMemberByIndex(0)->setHP(10);
 
 		gameState.getInventory().addItem("potion", 2);
 		gameState.getInventory().addItem("elixir");
 		gameState.getInventory().addItem("potion"); // should stack
 
+		gameState.getInventory().addItem("iron_sword");
+		gameState.getInventory().addItem("leather_jerkin");
+		gameState.getInventory().addItem("life_gem");
+		gameState.getInventory().addItem("greatsword");
+
 		registerMenus(menuRegistry, menuController, gameState);
 
-		menuController.setCurrentMenu("old mansion");
+		if (!menuRegistry.hasMenu("old mansion")) {
+			std::cerr << "[ERROR] Menu 'old mansion' not found! Exiting...\n";
+			std::cin.get();
+			return 1;
+		}
+
+		menuController.gotoMenu("old mansion");
 
 		while (running) {
 			std::cout << "\033[H"; // reset cursor to redraw arrow
@@ -52,7 +65,7 @@ int main()
 
 			// Handle input
 			InputKey key = getInput();
-			const size_t optionCount = menuRegistry.getMenu(menuController.getCurrentMenuName()).getMenuOptions().size();
+			const size_t optionCount = menuController.activeMenu().getMenuOptions().size();
 
 			switch (key) {
 			case InputKey::Up:
@@ -68,7 +81,7 @@ int main()
 				system("cls");
 				menuController.processInput(selectedIndex + 1);
 				selectedIndex = 0;
-				if (menuController.wantsToQuit()) running = false;
+				if (gameState.quitRequested()) running = false;
 				break;
 
 			default:

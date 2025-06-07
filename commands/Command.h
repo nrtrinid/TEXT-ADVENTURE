@@ -1,6 +1,7 @@
 #pragma once
 
 #include "items/Item.h"
+#include "equipment/Equippable.h"
 #include <string>
 #include <vector>
 
@@ -14,6 +15,8 @@ struct Command {
         QuitGame,
         AddItem,
         RemoveItem,
+        EquipItem,
+        UnequipItem,
         UseItem,
         UseSkill
     };
@@ -80,6 +83,20 @@ inline Command makeRemoveItem(const std::string& itemID, int quantity = 1) {
 	return command;
 }
 
+inline Command makeEquipItem(const std::string& itemID, int characterIndex) {
+    Command command{ Command::Type::EquipItem };
+    command.id = itemID;
+    command.targetIndex = characterIndex;
+    return command;
+}
+
+inline Command makeUnequipItem(int characterIndex, Slot slot) {
+    Command command{ Command::Type::UnequipItem };
+    command.targetIndex = characterIndex;
+    command.magnitudeOverride = static_cast<int>(slot);
+    return command;
+}
+
 inline Command makeUseItem(const std::string& itemId, int targetIndex = 0, int quantity = 1, int magnitudeOverride = 0) {
     Command command{ Command::Type::UseItem };
     command.id = itemId;
@@ -88,7 +105,6 @@ inline Command makeUseItem(const std::string& itemId, int targetIndex = 0, int q
     command.magnitudeOverride = magnitudeOverride;
     return command;
 }
-
 
 inline Command makeUseSkill(const std::string& skillId, int targetIndex) {
     Command command{ Command::Type::UseSkill };

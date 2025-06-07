@@ -18,12 +18,12 @@ void MenuRegistry::addMenuFactory(const std::string& id, std::function<Menu()> f
 		Menu menu = factory();
 
 		if (menu.getType() == MenuType::World) {
-			menu.addOption(MenuOption("pause-menu", "Menu", "View party, inventory, etc.", [] {
+			menu.addOption(MenuOption("pause-menu", "Menu", "View party, inventory, etc.", [](MenuNavigator&) {
 				return CommandList{ makeGotoMenu("pause_menu", true) };
 				}));
 		}
 		else if (menu.getType() == MenuType::System) {
-			menu.addOption(MenuOption("Back", "Return to the previous menu.", [] {
+			menu.addOption(MenuOption("Back", "Return to the previous menu.", [](MenuNavigator&) {
 				return CommandList{ makePopMenu() };
 			}));
 		}

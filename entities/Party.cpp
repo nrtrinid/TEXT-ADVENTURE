@@ -31,6 +31,16 @@ std::shared_ptr<Character> Party::getMemberByIndex(size_t index) const {
 	return members[index];
 }
 
+int Party::getIndexOf(const std::shared_ptr<Character>& character) const {
+	for (size_t i = 0; i < members.size(); ++i) {
+		if (members[i] == character) {
+			return static_cast<int>(i);
+		}
+	}
+	return -1; // not found
+}
+
+
 const std::vector<std::shared_ptr<Character>>& Party::getMembers() const {
 	return members;
 }

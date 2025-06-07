@@ -16,6 +16,7 @@ public:
 		std::vector<StatModifier> mods,
 		UpgradeInfo upgradeInfo = {});
 
+	std::string getDescription() const;
 	const std::vector<Slot>& getRequiredSlots() const noexcept;
 	const std::vector<StatModifier>& modifiers() const noexcept;
 	const UpgradeInfo& getUpgradeInfo() const noexcept;

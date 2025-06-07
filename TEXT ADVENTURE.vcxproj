@@ -136,8 +136,10 @@
     <ClInclude Include="commands\Command.h" />
     <ClInclude Include="commands\ItemCommands.h" />
     <ClInclude Include="commands\SkillCommands.h" />
+    <ClInclude Include="core\CommandProcessor.h" />
     <ClInclude Include="core\GameState.h" />
     <ClInclude Include="core\Input.h" />
+    <ClInclude Include="core\MenuNavigator.h" />
     <ClInclude Include="core\PlayerInventory.h" />
     <ClInclude Include="effects\Effect.h" />
     <ClInclude Include="effects\EffectRegistry.h" />
@@ -152,6 +154,9 @@
     <ClInclude Include="items\Item.h" />
     <ClInclude Include="items\ItemRegistry.h" />
     <ClInclude Include="items\ItemType.h" />
+    <ClInclude Include="menus\CharacterMenu.h" />
+    <ClInclude Include="menus\EquipSlotMenu.h" />
+    <ClInclude Include="menus\EquipTargetMenu.h" />
     <ClInclude Include="menus\InventoryMenu.h" />
     <ClInclude Include="menus\Menu.h" />
     <ClInclude Include="menus\MenuController.h" />
@@ -166,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="commands\ItemCommands.cpp" />
     <ClCompile Include="commands\SkillCommands.cpp" />
+    <ClCompile Include="core\CommandProcessor.cpp" />
     <ClCompile Include="core\GameState.cpp" />
     <ClCompile Include="core\Input.cpp" />
     <ClCompile Include="core\PlayerInventory.cpp" />
@@ -177,6 +183,9 @@
     <ClCompile Include="equipment_test.cpp" />
     <ClCompile Include="items\ItemRegistry.cpp" />
     <ClCompile Include="main\main.cpp" />
+    <ClCompile Include="menus\CharacterMenu.cpp" />
+    <ClCompile Include="menus\EquipSlotMenu.cpp" />
+    <ClCompile Include="menus\EquipTargetMenu.cpp" />
     <ClCompile Include="menus\InventoryMenu.cpp" />
     <ClCompile Include="menus\Menu.cpp" />
     <ClCompile Include="menus\MenuController.cpp" />

@@ -20,5 +20,5 @@ const Skill& SkillRegistry::get(const std::string& id) const {
 }
 
 void SkillRegistry::registerDefaults() {
-	registerSkill({ "heal_spell", 30, 5, true, "clarity", { "heal" } });
+	registerSkill({ "heal_spell", 5, 5, true, "clarity", { "heal" } });
 }

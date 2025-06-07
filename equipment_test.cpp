@@ -6,7 +6,7 @@
 
 void testSlotReplacement() {
 	std::cout << "\n== Slot Replacement ==\n";
-	Character c("id", "TestChar", 100);
+	Character c("id", "TestChar");
 	c.setStat("resolve", 10);
 
 	auto helm1 = std::make_shared<Equippable>(
@@ -36,7 +36,7 @@ void testSlotReplacement() {
 
 void testMultiSlotEquip() {
 	std::cout << "\n== Multi-slot Equip ==\n";
-	Character c("id", "DualWielder", 100);
+	Character c("id", "DualWielder");
 	c.setStat("resolve", 10);
 
 	auto greatsword = std::make_shared<Equippable>(
@@ -68,7 +68,7 @@ void testMultiSlotEquip() {
 
 void testNegativeStat() {
 	std::cout << "\n== Negative Modifier ==\n";
-	Character c("id", "CursedOne", 100);
+	Character c("id", "CursedOne");
 	c.setStat("resolve", 10);
 	c.setHP(20); // half health
 
@@ -87,7 +87,7 @@ void testNegativeStat() {
 
 void testFullHPScaling() {
 	std::cout << "\n== Full HP Scaling ==\n";
-	Character c("id", "Tanky", 100);
+	Character c("id", "Tanky");
 	c.setStat("resolve", 10);
 	c.setHP(c.getMaxHP()); // full health
 

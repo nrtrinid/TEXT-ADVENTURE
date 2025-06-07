@@ -129,6 +129,9 @@
     <ClInclude Include="equipment\UpgradeInfo.h">
       <Filter>equipment</Filter>
     </ClInclude>
+    <ClInclude Include="menus\EquipTargetMenu.h">
+      <Filter>menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\GameState.cpp">
@@ -189,6 +192,9 @@
       <Filter>equipment</Filter>
     </ClCompile>
     <ClCompile Include="equipment_test.cpp" />
+    <ClCompile Include="menus\EquipTargetMenu.cpp">
+      <Filter>menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

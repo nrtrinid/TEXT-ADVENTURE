@@ -1,4 +1,5 @@
 #include "ItemRegistry.h"
+#include "equipment/Equippable.h"
 #include <stdexcept>
 
 ItemRegistry& ItemRegistry::instance() {
@@ -7,54 +8,89 @@ ItemRegistry& ItemRegistry::instance() {
 	return instance;
 }
 
-void ItemRegistry::registerItem(const Item& item) {
-	itemTable[item.id] = item;
+void ItemRegistry::registerItem(std::shared_ptr<Item> item) {
+	itemTable_[item->id] = std::move(item);
 }
 
-const Item& ItemRegistry::get(const std::string& id) const {
-	auto it = itemTable.find(id);
-	if (it == itemTable.end()) {
+std::shared_ptr<Item> ItemRegistry::get(const std::string& id) const {
+	auto it = itemTable_.find(id);
+	if (it == itemTable_.end()) {
 		throw std::runtime_error("Item not found: " + id);
 	}
 	return it->second;
 }
 
+std::shared_ptr<Item> ItemRegistry::tryGet(const std::string& id) const {
+    auto it = itemTable_.find(id);
+    return it == itemTable_.end() ? nullptr : it->second;
+}
+
+std::shared_ptr<Equippable> ItemRegistry::getEquippable(const std::string& id) const {
+    auto base = tryGet(id);
+    return std::dynamic_pointer_cast<Equippable>(base);
+}
+
+
+
 void ItemRegistry::registerDefaults() {
-	registerItem({
-		"potion",
-		"Potion",
-		"Heals 10 HP",
-		ItemType::Consumable,
-		"heal",
-		10
-		});
 
-	registerItem({
-		"elixir",
-		"Elixir",
-		"Restores all HP",
-		ItemType::Consumable,
-		"heal",
-		9999
-		});
+    //--------------------------------------
+    //  Consumables
+    //--------------------------------------
+    registerItem(std::make_shared<Item>(
+        "potion", "Potion", "Heals 10 HP",
+        ItemType::Consumable, "heal", 10
+    ));
 
-	// key items
+    registerItem(std::make_shared<Item>(
+        "elixir", "Elixir", "Restores all HP",
+        ItemType::Consumable, "heal", 9999
+    ));
 
-	registerItem({
-		"attic_key",
-		"Attic Key",
-		"Looks useful...",
-		ItemType::Key,
-		"noop",
-		std::nullopt
-		});
+    //--------------------------------------
+    //  Key items
+    //--------------------------------------
+    registerItem(std::make_shared<Item>(
+        "attic_key", "Attic Key", "Looks useful...",
+        ItemType::Key, "noop", std::nullopt
+    ));
+    registerItem(std::make_shared<Item>(
+        "crystal", "Crystal", "Emits a low hum",
+        ItemType::Key, "noop", std::nullopt
+    ));
 
-	registerItem({
-		"crystal",
-		"Crystal",
-		"Emits a low hum",
-		ItemType::Key,
-		"noop",
-		std::nullopt
-		});
+    //--------------------------------------
+    //  Equippables  (full prototypes)
+    //--------------------------------------
+    registerItem(std::make_shared<Equippable>(
+        "iron_sword",
+        "Iron Sword",
+        std::vector<Slot>{ Slot::Mainhand },
+        std::vector<StatModifier>{ { "power", +3 } },
+        UpgradeInfo{ 0, 5 }
+    ));
+
+    registerItem(std::make_shared<Equippable>(
+        "leather_jerkin",
+        "Leather Jerkin",
+        std::vector<Slot>{ Slot::Armor },
+        std::vector<StatModifier>{ { "resolve", +2 } },
+        UpgradeInfo{ 0, 3 }
+    ));
+
+    registerItem(std::make_shared<Equippable>(
+        "life_gem",
+        "Life Gem",
+        std::vector<Slot>{ Slot::Offhand },
+        std::vector<StatModifier>{ { "clarity", +2 } },
+        UpgradeInfo{ 0, 3 }
+    ));
+
+    registerItem(std::make_shared<Equippable>(
+        "greatsword",
+        "Greatsword",
+        std::vector<Slot> { Slot::Mainhand, Slot::Offhand },
+        std::vector<StatModifier>{ { "power", +5 }, {"resolve", +1} },
+        UpgradeInfo{ 0, 5 }
+    ));
 }
