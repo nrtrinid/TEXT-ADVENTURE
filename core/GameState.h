@@ -25,7 +25,7 @@ public:
 	const Party::Ptr& getParty() const;
 
 	// equips
-	bool equipItem(const std::string& itemID, int characterIndex);
+	bool equipItem(const std::string& itemID, int characterIndex, Slot preferred);
 	void unequipSlot(int charIndex, Slot slot);
 
 private:

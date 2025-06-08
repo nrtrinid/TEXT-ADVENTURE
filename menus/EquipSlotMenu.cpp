@@ -19,16 +19,16 @@ Menu buildEquipSlotMenu(int characterIndex, Slot slot, GameState& gameState) {
 		auto equipment = ItemRegistry::instance().getEquippable(item.itemID);
 		if (!equipment) continue;
 
-		const auto& slots = equipment->getRequiredSlots();
+		const auto& slots = equipment->allowedSlots();
 		if (std::find(slots.begin(), slots.end(), slot) == slots.end())
 			continue;
 
 		menu.addOption(MenuOption(
 			equipment->name,
 			equipment->getDescription(),
-			[equipment, characterIndex](MenuNavigator&) {
+			[equipment, characterIndex, slot](MenuNavigator&) {
 				return CommandList{
-					makeEquipItem(equipment->id, characterIndex),
+					makeEquipItem(equipment->id, characterIndex, slot),
 					makePause(),
 					makePopMenu()
 				};

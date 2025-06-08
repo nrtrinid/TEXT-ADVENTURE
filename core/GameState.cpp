@@ -36,7 +36,7 @@ const Party::Ptr& GameState::getParty() const {
 	return party;
 }
 
-bool GameState::equipItem(const std::string& id, int index)
+bool GameState::equipItem(const std::string& id, int index, Slot preferred)
 {
     // validate party pointer and index
     const auto& partyPtr = getParty();
@@ -44,8 +44,7 @@ bool GameState::equipItem(const std::string& id, int index)
         return false;
 
     // get prototype & inventory
-    const auto& proto = std::static_pointer_cast<Equippable>(
-        ItemRegistry::instance().get(id));
+    const auto& proto = std::static_pointer_cast<Equippable>(ItemRegistry::instance().get(id)->clone());
     auto& inv = getInventory();
 
     // make sure we own at least one copy
@@ -59,7 +58,7 @@ bool GameState::equipItem(const std::string& id, int index)
 
     // equip and capture anything bumped off
     const auto& member = partyPtr->getMemberByIndex(index);
-    const auto& bumped = member->equip(proto);
+    const auto& bumped = member->equip(proto, preferred);
     for (auto& old : bumped)
         inv.addItem(old->id);        // return displaced gear
 

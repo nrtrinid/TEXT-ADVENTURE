@@ -45,7 +45,7 @@ int main()
 
 		gameState.getInventory().addItem("iron_sword");
 		gameState.getInventory().addItem("leather_jerkin");
-		gameState.getInventory().addItem("life_gem");
+		gameState.getInventory().addItem("life_gem", 2);
 		gameState.getInventory().addItem("greatsword");
 
 		registerMenus(menuRegistry, menuController, gameState);

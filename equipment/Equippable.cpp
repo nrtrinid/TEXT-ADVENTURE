@@ -1,13 +1,44 @@
 #include "Equippable.h"
 #include <sstream>
 
-Equippable::Equippable(std::string id, std::string name, std::vector<Slot> requiredSlots,
-	std::vector<StatModifier> mods, UpgradeInfo upgrade)
+Equippable::Equippable(
+	std::string id,
+	std::string name,
+	std::size_t slotsRequired,
+	std::vector<Slot> allowedSlots,
+	std::vector<StatModifier> modifiers,
+	UpgradeInfo upgrade)
 	: Item{ std::move(id), std::move(name), "Equippable item.", ItemType::Equippable, "noop", std::nullopt },
-	requiredSlots_(std::move(requiredSlots)),
-	modifiers_(std::move(mods)),
+	allowedSlots_(std::move(allowedSlots)),
+	slotsRequired_(slotsRequired),
+	occupiedSlots_(),
+	modifiers_(std::move(modifiers)),
 	upgradeInfo_(std::move(upgrade)) {}
 
+Equippable::Equippable(
+	std::string id,
+	std::string name,
+	std::vector<Slot> allowedSlots,
+	std::vector<StatModifier> modifiers,
+	UpgradeInfo upgradeInfo)
+	: Equippable(std::move(id),
+		std::move(name),
+		1,
+		std::move(allowedSlots),
+		std::move(modifiers),
+		std::move(upgradeInfo)) {}
+
+const std::vector<Slot>& Equippable::allowedSlots() const noexcept {
+	return allowedSlots_;
+}
+
+std::size_t Equippable::slotsRequired() const noexcept {
+	return slotsRequired_;
+}
+
+const std::vector<Slot>& Equippable::occupiedSlots() const noexcept {
+	return occupiedSlots_;
+}
 
 std::string Equippable::getDescription() const {
 	std::ostringstream out;
@@ -32,10 +63,6 @@ std::string Equippable::getDescription() const {
 	return out.str();
 }
 
-const std::vector<Slot>& Equippable::getRequiredSlots() const noexcept {
-	return requiredSlots_;
-}
-
 const std::vector<StatModifier>& Equippable::modifiers() const noexcept {
 	return modifiers_;
 }
@@ -48,4 +75,8 @@ void Equippable::applyUpgrade() {
 	if (upgradeInfo_.level < upgradeInfo_.maxLevel) {
 		upgradeInfo_.level++;
 	}
+}
+
+std::shared_ptr<Item> Equippable::clone() const {
+	return std::make_shared<Equippable>(*this);
 }

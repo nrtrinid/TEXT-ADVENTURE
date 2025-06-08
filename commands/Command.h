@@ -36,6 +36,8 @@ struct Command {
     std::string id;               // item or skill ID (for useItem / useSkill)
     int magnitudeOverride = 0;    // optional override for item effects
     int targetIndex = 0;          // target party index (useItem / useSkill)
+
+    std::optional<Slot> slot;     // only used by equipItem/ unequipItem
 };
 
 using CommandList = std::vector<Command>; // alias for vector of commands
@@ -83,17 +85,18 @@ inline Command makeRemoveItem(const std::string& itemID, int quantity = 1) {
 	return command;
 }
 
-inline Command makeEquipItem(const std::string& itemID, int characterIndex) {
+inline Command makeEquipItem(const std::string& itemID, int characterIndex, Slot slot) {
     Command command{ Command::Type::EquipItem };
     command.id = itemID;
     command.targetIndex = characterIndex;
+    command.slot = slot;
     return command;
 }
 
 inline Command makeUnequipItem(int characterIndex, Slot slot) {
     Command command{ Command::Type::UnequipItem };
     command.targetIndex = characterIndex;
-    command.magnitudeOverride = static_cast<int>(slot);
+    command.slot = slot;
     return command;
 }
 

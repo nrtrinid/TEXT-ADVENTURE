@@ -16,7 +16,7 @@ void registerInventoryMenu(MenuRegistry& menuRegistry, GameState& gameState) {
 			const auto& item = ItemRegistry::instance().get(entry.itemID);
 
 			auto base = ItemRegistry::instance().get(entry.itemID);
-			std::string label = base->name + " (x" + std::to_string(entry.quantity) + ")";
+			std::string label = "x" + std::to_string(entry.quantity) + ") " + base->name;
 			std::string description = base->description;
 
 			if (base->type == ItemType::Equippable) {

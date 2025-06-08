@@ -63,25 +63,25 @@ void ItemRegistry::registerDefaults() {
     //  Equippables  (full prototypes)
     //--------------------------------------
     registerItem(std::make_shared<Equippable>(
-        "iron_sword",
-        "Iron Sword",
-        std::vector<Slot>{ Slot::Mainhand },
-        std::vector<StatModifier>{ { "power", +3 } },
-        UpgradeInfo{ 0, 5 }
-    ));
-
-    registerItem(std::make_shared<Equippable>(
         "leather_jerkin",
         "Leather Jerkin",
         std::vector<Slot>{ Slot::Armor },
         std::vector<StatModifier>{ { "resolve", +2 } },
         UpgradeInfo{ 0, 3 }
     ));
+    
+    registerItem(std::make_shared<Equippable>(
+        "iron_sword",
+        "Iron Sword",
+        std::vector<Slot>{ Slot::Mainhand, Slot::Offhand },
+        std::vector<StatModifier>{ { "power", +3 } },
+        UpgradeInfo{ 0, 5 }
+    ));
 
     registerItem(std::make_shared<Equippable>(
         "life_gem",
         "Life Gem",
-        std::vector<Slot>{ Slot::Offhand },
+        std::vector<Slot>{ Slot::Mainhand, Slot::Offhand },
         std::vector<StatModifier>{ { "clarity", +2 } },
         UpgradeInfo{ 0, 3 }
     ));
@@ -89,8 +89,9 @@ void ItemRegistry::registerDefaults() {
     registerItem(std::make_shared<Equippable>(
         "greatsword",
         "Greatsword",
-        std::vector<Slot> { Slot::Mainhand, Slot::Offhand },
-        std::vector<StatModifier>{ { "power", +5 }, {"resolve", +1} },
+        2,
+        std::vector<Slot> { Slot::Mainhand },
+        std::vector<StatModifier>{ { "power", +6 }, {"resolve", +2} },
         UpgradeInfo{ 0, 5 }
     ));
 }

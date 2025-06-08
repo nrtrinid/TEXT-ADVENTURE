@@ -37,6 +37,7 @@ public:
 	void rescaleHP(int oldMax);
 
 	std::vector<std::shared_ptr<Equippable>> equip(const std::shared_ptr<Equippable>& item);
+	std::vector<std::shared_ptr<Equippable>> equip(const std::shared_ptr<Equippable>& item, Slot preferred);
 	std::shared_ptr<Equippable> unequip(Slot slot);
 	bool hasEquipped(Slot slot) const;
 	bool isEquipped(std::string_view itemID) const;

@@ -102,39 +102,55 @@ void Character::rescaleHP(int oldMax) {
 
 
 std::vector<std::shared_ptr<Equippable>> Character::equip(const std::shared_ptr<Equippable>& item) {
+	if (!item || item->allowedSlots().empty()) return {};
+	return equip(item, item->allowedSlots().front());
+}
+
+std::vector<std::shared_ptr<Equippable>> Character::equip(const std::shared_ptr<Equippable>& item, Slot preferred) {
 	if (!item) return {};
 
+	// reject invalid placements
+	const auto& allowed = item->allowedSlots();
+	if (std::find(allowed.begin(), allowed.end(), preferred) == allowed.end()) {
+		return {};
+	}
+
+	// build list of slots the instance will eat
+	std::vector<Slot> consume{ preferred };
+	if (item->slotsRequired() == 2) {
+		// assume main/offhand pairing
+		Slot other = (preferred == Slot::Mainhand ? Slot::Offhand : Slot::Mainhand);
+		consume.push_back(other);
+	}
 	int oldMax = getMaxHP();
 
-	const auto& requiredSlots = item->getRequiredSlots();
+	// collect anything in those slots
 	std::unordered_set<std::shared_ptr<Equippable>> toUnequip;
+	for (Slot slot : consume) {
+		auto& pointer = equipment_[static_cast<size_t>(slot)];
+		if (pointer) toUnequip.insert(pointer);
+	}
 
-	// gather all conflicting items
-	for (Slot slot : requiredSlots) {
-		std::size_t index = static_cast<std::size_t>(slot);
-		if (equipment_[index]) {
-			toUnequip.insert(equipment_[index]);
+	// unequip them (clears all occupiedSlots_
+	for (auto& oldItem : toUnequip) {
+		for (Slot slot : oldItem->occupiedSlots()) {
+			equipment_[static_cast<size_t>(slot)] = nullptr;
 		}
+		oldItem->occupiedSlots_.clear();
 	}
 
-	// unequip them
-	for (const auto& equipped : toUnequip) {
-		for (Slot slot : equipped->getRequiredSlots()) {
-			std::size_t index = static_cast<std::size_t>(slot);
-			if (equipment_[index] == equipped) {
-				equipment_[index] = nullptr;
-			}
-		}
+	// mark this instance's occupied slots
+	item->occupiedSlots_ = consume;
+
+	// equip it into each slot
+	for (Slot slots : consume) {
+		equipment_[static_cast<size_t>(slots)] = item;
 	}
 
-	// equip new item
-	for (Slot slot : requiredSlots) {
-		std::size_t index = static_cast<std::size_t>(slot);
-		equipment_[index] = item;
-	}
 	rescaleHP(oldMax);
 
-	return std::vector<std::shared_ptr<Equippable>>(toUnequip.begin(), toUnequip.end());
+	// return what got bumped off
+	return { toUnequip.begin(), toUnequip.end() };
 }
 
 std::shared_ptr<Equippable> Character::unequip(Slot slot) {
@@ -144,7 +160,7 @@ std::shared_ptr<Equippable> Character::unequip(Slot slot) {
 	std::shared_ptr<Equippable> removed = equipment_[index];
 	if (!removed) return nullptr;
 
-	for (Slot slot : removed->getRequiredSlots()) {
+	for (Slot slot : removed->occupiedSlots()) {
 		std::size_t index = static_cast<std::size_t>(slot);
 		if (equipment_[index] == removed) {
 			equipment_[index] = nullptr;
@@ -169,7 +185,6 @@ bool Character::isEquipped(std::string_view itemID) const {
 	}
 	return false;
 }
-
 
 std::shared_ptr<Equippable> Character::getEquipped(Slot slot) const {
 	std::size_t index = static_cast<std::size_t>(slot);

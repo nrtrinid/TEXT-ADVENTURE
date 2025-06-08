@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ItemType.h"
+#include <memory>
 #include <string>
 #include <optional>
 
@@ -27,4 +28,8 @@ struct Item {
         effectID(std::move(effectID)),
         magnitudeOverride(magnitude)
     {}
+
+    virtual std::shared_ptr<Item> clone() const {
+        return std::make_shared<Item>(*this);
+    }
 };

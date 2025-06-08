@@ -16,8 +16,8 @@ void CommandProcessor::executeCommands(const CommandList& commands) {
 		case Command::Type::QuitGame: gameState_.requestQuit(); break;
 		case Command::Type::AddItem: executeAddItem(command, gameState_); break;
 		case Command::Type::RemoveItem: executeRemoveItem(command, gameState_); break;
-		case Command::Type::EquipItem: gameState_.equipItem(command.id, command.targetIndex); break;
-		case Command::Type::UnequipItem: gameState_.unequipSlot(command.targetIndex, static_cast<Slot>(command.magnitudeOverride)); break;
+		case Command::Type::EquipItem: gameState_.equipItem(command.id, command.targetIndex, *command.slot); break;
+		case Command::Type::UnequipItem: gameState_.unequipSlot(command.targetIndex, *command.slot); break;
 		case Command::Type::UseItem: executeUseItem(command, gameState_); break;
 		case Command::Type::UseSkill: executeUseSkill(command, gameState_); break;
 		}
