@@ -58,10 +58,9 @@ void registerCharacterMenu(MenuRegistry& menuRegistry, GameState& gameState, con
 						return CommandList{ makePrint("Error: Character not found.") };
 					}
 
-					nav.pushMenu(std::make_shared<Menu>(
-						buildEquipSlotMenu(index, slot, gameState)
-					));
-					return CommandList{};
+					return CommandList{
+						makePushMenu(std::make_shared<Menu>(buildEquipSlotMenu(index, slot, gameState)))
+					};
 				}
 			));
 		}

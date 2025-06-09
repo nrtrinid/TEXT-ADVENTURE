@@ -5,12 +5,15 @@
 #include <string>
 #include <vector>
 
+class Menu;
+
 struct Command {
     enum class Type {
         Print,
         Pause,
         SetFlag,
         GotoMenu,
+        PushMenu,
         PopMenu,
         QuitGame,
         AddItem,
@@ -38,6 +41,8 @@ struct Command {
     int targetIndex = 0;          // target party index (useItem / useSkill)
 
     std::optional<Slot> slot;     // only used by equipItem/ unequipItem
+    
+    std::shared_ptr<Menu> menu;   // only used by pushmenu
 };
 
 using CommandList = std::vector<Command>; // alias for vector of commands
@@ -61,6 +66,12 @@ inline Command makeGotoMenu(const std::string& targetMenu, bool remember = false
 
 inline Command makeSetFlag(const std::string& flagName, bool enabled = true) {
 	return { Command::Type::SetFlag, "", "", flagName, enabled };
+}
+
+inline Command makePushMenu(std::shared_ptr<Menu> menu) {
+    Command command{ Command::Type::PushMenu };
+    command.menu = std::move(menu);
+    return command;
 }
 
 inline Command makePopMenu() {

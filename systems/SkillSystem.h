@@ -1,7 +1,6 @@
 #pragma once
 
 #include "skills/SkillRegistry.h"
-#include "systems/SkillSystem.h"
 #include "effects/EffectRegistry.h"
 #include "core/GameState.h"
 #include "entities/Character.h"
@@ -21,3 +20,4 @@ namespace SkillSystem {
 			EffectRegistry::instance().get(id).apply(gameState, caster, target, magnitude);
 	}
 }
+

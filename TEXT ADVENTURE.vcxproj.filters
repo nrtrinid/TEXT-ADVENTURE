@@ -144,6 +144,9 @@
     <ClInclude Include="menus\EquipSlotMenu.h">
       <Filter>menus</Filter>
     </ClInclude>
+    <ClInclude Include="menus\TargetMenu.h">
+      <Filter>menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="menus\InventoryMenu.cpp">
@@ -213,6 +216,9 @@
       <Filter>menus</Filter>
     </ClCompile>
     <ClCompile Include="menus\EquipSlotMenu.cpp">
+      <Filter>menus</Filter>
+    </ClCompile>
+    <ClCompile Include="menus\TargetMenu.cpp">
       <Filter>menus</Filter>
     </ClCompile>
   </ItemGroup>

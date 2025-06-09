@@ -1,5 +1,6 @@
 #include "InventoryMenu.h"
 #include "Menu.h"
+#include "menus/TargetMenu.h"
 #include "core/MenuNavigator.h"
 #include "items/ItemRegistry.h"
 #include "equipment/Equippable.h"
@@ -28,19 +29,48 @@ void registerInventoryMenu(MenuRegistry& menuRegistry, GameState& gameState) {
 					description,
 					[equippable, &gameState](MenuNavigator& menuNavigator)
 					{
-						Menu sub = buildEquipTargetMenu(equippable, gameState);
-						menuNavigator.pushMenu(std::make_shared<Menu>(std::move(sub)));
-						return CommandList{};          // nothing else for now
+						return CommandList{
+							makePushMenu(std::make_shared<Menu>(buildEquipTargetMenu(equippable, gameState)))
+						};
 					}
 				));
 			}
 			else {
-				menu.addOption(MenuOption(label, description, [id = entry.itemID](MenuNavigator&) {
+				menu.addOption(MenuOption(label, description, [id = entry.itemID, &gameState](MenuNavigator& navigator) {
+					TargetSpec spec;
+
+					spec.canSelect = [&](const Character& character) {
+						return character.isAlive();
+						};
+
+					spec.makeLabel = [&](const Character& character, int) {
+						return character.getName();
+						};
+
+					spec.makeDescription = [&](const Character& character, int) {
+						return std::to_string(character.getHP()) + "/" + std::to_string(character.getMaxHP()) + " HP";
+						};
+
+					spec.makeAction = [id](int index) {
+						return CommandList{
+							makeUseItem(id, index),
+							makePause(),
+							makePopMenu()
+						};
+						};
+
+					// create new menu built from the spec
+					auto submenu = buildTargetMenu(
+						"Use item",
+						"Select target for: " + ItemRegistry::instance().get(id)->name,
+						spec,
+						gameState
+					);
+
 					return CommandList{
-						makeUseItem(id),
-						makePause()
+						makePushMenu(std::make_shared<Menu>(std::move(submenu)))
 					};
-				}));
+					}));
 			}
 		}
 		return menu;

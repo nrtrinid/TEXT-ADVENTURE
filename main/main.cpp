@@ -25,7 +25,7 @@ int main()
 		bool running = true;
 		size_t selectedIndex = 0;
 
-		// initalize the party
+		// initialize the party
 		gameState.getParty() = std::make_shared<Party>();
 
 		auto& party = gameState.getParty();

@@ -13,6 +13,7 @@ void CommandProcessor::executeCommands(const CommandList& commands) {
 		case Command::Type::SetFlag: gameState_.setFlag(command.flag, command.enabled); break;
 		case Command::Type::GotoMenu: menuNavigator_.gotoMenu(command.target, command.enabled);  break;
 		case Command::Type::PopMenu: menuNavigator_.popMenu(); break;
+		case Command::Type::PushMenu: menuNavigator_.pushMenu(command.menu); break;
 		case Command::Type::QuitGame: gameState_.requestQuit(); break;
 		case Command::Type::AddItem: executeAddItem(command, gameState_); break;
 		case Command::Type::RemoveItem: executeRemoveItem(command, gameState_); break;

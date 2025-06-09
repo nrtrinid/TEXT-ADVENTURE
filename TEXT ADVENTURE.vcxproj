@@ -164,6 +164,7 @@
     <ClInclude Include="menus\MenuRegistry.h" />
     <ClInclude Include="menus\MenuSetup.h" />
     <ClInclude Include="menus\PartyMenu.h" />
+    <ClInclude Include="menus\TargetMenu.h" />
     <ClInclude Include="skills\Skill.h" />
     <ClInclude Include="skills\SkillRegistry.h" />
     <ClInclude Include="systems\SkillSystem.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="menus\MenuRegistry.cpp" />
     <ClCompile Include="menus\MenuSetup.cpp" />
     <ClCompile Include="menus\PartyMenu.cpp" />
+    <ClCompile Include="menus\TargetMenu.cpp" />
     <ClCompile Include="skills\SkillRegistry.cpp" />
   </ItemGroup>
   <ItemGroup>
